@@ -11,9 +11,10 @@ in
  
   home.packages = with pkgs; [
     firefox
+    jetbrains-toolbox
     kate
     libsForQt5.ksshaskpass
-    jetbrains-toolbox
+    neofetch
     yakuake
   ];
 
