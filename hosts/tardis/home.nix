@@ -30,14 +30,6 @@
       tree
     ];
 
-    sessionVariables =  {
-      EDITOR = "micro";
-      SUDO_EDITOR = "$EDITOR";
-      VISUAL= "$EDITOR";
-      MICRO_CONFIG_HOME = "$HOME/.config/micro";
-      DIRENV_LOG_FORMAT = "";
-    };
-
     file."NixOS-configuration/.directory".text = ''
       [Desktop Entry]
       Icon=./programs/extras/images/folder-nix-snowflake-light.svg

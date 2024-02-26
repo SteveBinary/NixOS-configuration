@@ -12,4 +12,11 @@
       tabstospaces = true;
     };
   };
+
+  home.sessionVariables =  {
+    EDITOR = "micro";
+    SUDO_EDITOR = "$EDITOR";
+    VISUAL= "$EDITOR";
+    MICRO_CONFIG_HOME = "$HOME/.config/micro";
+  };
 }

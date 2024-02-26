@@ -56,6 +56,10 @@
       xkb.layout = "de";
       displayManager.sddm.enable = true;
       desktopManager.plasma5.enable = true;
+
+      # Enable automatic login for the user.
+      services.xserver.displayManager.autoLogin.enable = true;
+      services.xserver.displayManager.autoLogin.user = "steve";
     };
     printing.enable = true;
     flatpak.enable = true;
@@ -92,10 +96,6 @@
       extraGroups = [ "networkmanager" "wheel" ];
     };
   };
-
-  # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "steve";
 
   environment.systemPackages = with pkgs; [
     bat
