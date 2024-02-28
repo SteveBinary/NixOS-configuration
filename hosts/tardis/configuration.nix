@@ -54,12 +54,12 @@
     xserver = {
       enable = true;
       xkb.layout = "de";
-      displayManager.sddm.enable = true;
       desktopManager.plasma5.enable = true;
-
-      # Enable automatic login for the user.
-      services.xserver.displayManager.autoLogin.enable = true;
-      services.xserver.displayManager.autoLogin.user = "steve";
+      displayManager = {
+        sddm.enable = true;
+        autoLogin.enable = true;
+        autoLogin.user = "steve";
+      };
     };
     printing.enable = true;
     flatpak.enable = true;

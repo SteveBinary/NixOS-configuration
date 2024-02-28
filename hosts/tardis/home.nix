@@ -35,6 +35,11 @@
       Icon=./programs/extras/images/folder-nix-snowflake-light.svg
     '';
 
+    file."Projects/.directory".text = ''
+      [Desktop Entry]
+      Icon=folder-script
+    '';
+
     stateVersion = "24.05";
   };
 

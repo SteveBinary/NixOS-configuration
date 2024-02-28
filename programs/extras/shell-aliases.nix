@@ -15,10 +15,10 @@
 
   k = "kubectl";
 
-  l = "lsd -l";
-  ls = "lsd -l";
-  la = "lsd -al";
-  ll = "lsd -al";
+  l = "lsd -l --group-directories-first";
+  ls = "lsd -l --group-directories-first";
+  la = "lsd -al --group-directories-first";
+  ll = "lsd -al --group-directories-first";
 
   n = "cd ~/NixOS-configuration";
 
