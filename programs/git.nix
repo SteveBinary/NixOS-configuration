@@ -7,7 +7,7 @@
     userEmail = "SteveBinary@users.noreply.github.com";
     extraConfig = {
       init.defaultbranch = "main";
-      core.askpass = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
+      core.askpass = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
     };
   };
 }

@@ -16,7 +16,6 @@
       # desktop applications
       firefox
       kate
-      libsForQt5.ksshaskpass
       yakuake
 
       # terminal applications
