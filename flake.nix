@@ -10,12 +10,16 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, ... }:
+  let
+    makeSystem = import ./lib/makeSystem.nix { inherit nixpkgs nixpkgs-stable home-manager; };
+  in {
     nixosConfigurations = {
-      tardis = nixpkgs.lib.nixosSystem (import ./hosts/tardis/nixos-system.nix {
-        hostName = "tardis";
-        inherit nixpkgs nixpkgs-stable home-manager;
-      });
+      tardis = makeSystem {
+        machine = "tardis";
+        system = "x86_64-linux";
+        user = "steve";
+      };
     };
   };
 }

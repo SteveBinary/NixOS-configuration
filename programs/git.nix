@@ -1,10 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, userName, userEmail, ... }:
 
 {
   programs.git = {
     enable = true;
-    userName = "SteveBinary";
-    userEmail = "SteveBinary@users.noreply.github.com";
+    inherit userName userEmail;
     extraConfig = {
       init.defaultbranch = "main";
       core.askpass = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";

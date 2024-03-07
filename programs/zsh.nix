@@ -1,4 +1,4 @@
-{ pkgs, hostName, ... }:
+{ pkgs, machine, ... }:
 
 {
   programs.zsh = {
@@ -7,7 +7,7 @@
     enableAutosuggestions = true;
     autocd = true;
     history.path = "$HOME/.zsh/zsh_history";
-    shellAliases = import ./extras/shell-aliases.nix { inherit hostName; };
+    shellAliases = import ./extras/shell-aliases.nix { inherit machine; };
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];

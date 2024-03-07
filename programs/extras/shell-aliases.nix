@@ -1,4 +1,4 @@
-{ hostName }:
+{ machine }:
 
 {
   c = "clear";
@@ -15,10 +15,10 @@
 
   k = "kubectl";
 
-  l = "lsd -l --group-directories-first";
-  ls = "lsd -l --group-directories-first";
-  la = "lsd -al --group-directories-first";
-  ll = "lsd -al --group-directories-first";
+  l = "lsd --long --group-directories-first";
+  ls = "lsd --long --group-directories-first";
+  la = "lsd --all --long --group-directories-first";
+  ll = "lsd --all --long --group-directories-first";
 
   n = "cd ~/NixOS-configuration";
 
@@ -29,7 +29,7 @@
 
   ### NixOS related ###
 
-  config-switch = "sudo nixos-rebuild switch --flake ~/NixOS-configuration#${hostName}";
+  config-switch = "sudo nixos-rebuild switch --flake ~/NixOS-configuration#${machine}";
   config-switch-verbose = "config-switch --verbose --show-trace";
 
   update-packages = ''echo 'Updating flake...' && sudo nix flake update ~/NixOS-configuration && echo 'Rebuild and switch...' && config-switch'';

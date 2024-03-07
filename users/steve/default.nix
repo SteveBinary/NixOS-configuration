@@ -1,14 +1,14 @@
-{ pkgs, home-manager, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 {
   imports = [
     ../../programs/bash.nix
     ../../programs/direnv.nix
     ../../programs/fzf.nix
-    ../../programs/git.nix
     ../../programs/micro.nix
     ../../programs/vscode.nix
     ../../programs/zsh.nix
+    (import ../../programs/git.nix { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
   ];
 
   home = {
@@ -24,7 +24,7 @@
       kdash
       kubectl
       lsd
-      neofetch
+      fastfetch
       tldr
       tree
     ];
