@@ -6,6 +6,7 @@
     ../../programs/direnv.nix
     ../../programs/fzf.nix
     ../../programs/micro.nix
+    ../../programs/tmux.nix
     ../../programs/vscode.nix
     ../../programs/zsh.nix
     (import ../../programs/git.nix { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
