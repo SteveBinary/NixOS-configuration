@@ -5,7 +5,7 @@
     ../../programs/bash.nix
     ../../programs/direnv.nix
     ../../programs/fzf.nix
-    ../../programs/micro.nix
+    ../../programs/helix.nix
     ../../programs/tmux.nix
     ../../programs/vscode.nix
     ../../programs/zsh.nix
