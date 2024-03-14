@@ -4,7 +4,7 @@
     defaultEditor = true;
 
     settings = {
-      theme = "catppucchin_mocha";
+      theme = "catppuccin_mocha";
 
       editor = {
         # show currently open buffers, only when more than one exists
@@ -15,19 +15,12 @@
         line-number = "relative";
         # show a ruler at column 150
         rulers = [150];
-        # force the theme to show colors
-        true-color = true;
       };
 
       editor.cursor-shape = {
         insert = "bar";
         normal = "block";
         select = "underline";
-      };
-
-      editor.indent-guides = {
-        render = true;
-        character = "¦";
       };
 
       editor.lsp = {

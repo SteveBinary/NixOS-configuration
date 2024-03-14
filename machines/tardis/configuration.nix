@@ -63,10 +63,10 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+    desktopManager.plasma6.enable = true;
     xserver = {
       enable = true;
       xkb.layout = "de";
-      desktopManager.plasma6.enable = true;
       displayManager = {
         sddm.enable = true;
         autoLogin.enable = true;
