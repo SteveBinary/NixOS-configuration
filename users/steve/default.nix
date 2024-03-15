@@ -2,13 +2,12 @@
 
 {
   imports = [
-    ../../programs/bash.nix
     ../../programs/direnv.nix
     ../../programs/fzf.nix
     ../../programs/helix.nix
     ../../programs/tmux.nix
     ../../programs/vscode.nix
-    ../../programs/zsh.nix
+    ../../programs/shells
     (import ../../programs/git.nix { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
   ];
 

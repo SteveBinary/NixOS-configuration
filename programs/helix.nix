@@ -15,6 +15,10 @@
         line-number = "relative";
         # show a ruler at column 150
         rulers = [150];
+        # color the mode indicator
+        color-modes = true;
+        # disable mouse support
+        mouse = false;
       };
 
       editor.cursor-shape = {
