@@ -1,4 +1,11 @@
+{ config, ... }:
+
 {
+  home.shellAliases = {
+    # this allows 'sudo hx' to use this helix config; the alias sudo="sudo " must also be set
+    hx = "hx --config ${config.xdg.configHome}/helix/config.toml";
+  };
+
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -7,18 +14,20 @@
       theme = "catppuccin_mocha";
 
       editor = {
+        # automatically save then the terminal loses focus
+        auto-save = true;
         # show currently open buffers, only when more than one exists
         bufferline = "multiple";
+        # color the mode indicator
+        color-modes = true;
         # highlight all lines with a cursor
         cursorline = true;
         # use relative line numbers
         line-number = "relative";
-        # show a ruler at column 150
-        rulers = [150];
-        # color the mode indicator
-        color-modes = true;
-        # disable mouse support
+        # diable mouse support
         mouse = false;
+        # show a ruler at column 150
+        rulers = [ 150 ];
       };
 
       editor.cursor-shape = {
@@ -35,9 +44,25 @@
         mode.insert = "INSERT";
         mode.normal = "NORMAL";
         mode.select = "SELECT";
-        left = ["mode" "spinner"];
-        center = ["version-control" "file-name"];
-        right = ["diagnostics" "selections" "position" "file-encoding" "file-line-ending" "file-type"];
+        left = [ "mode" "spinner" ];
+        center = [ "version-control" "file-name" ];
+        right = [ "diagnostics" "selections" "position" "file-encoding" "file-line-ending" "file-type" ];
+      };
+
+      keys.insert = {
+        C-s = [ ":write" ]; # save the buffer
+        C-q = [ "normal_mode" ":quit" ]; # close the buffer
+        C-left = [ "move_prev_word_start" ]; # faster movement with the arrow keys
+        C-right = [ "move_next_word_start" ]; # faster movement with the arrow keys
+      };
+
+      keys.normal = {
+        esc = [ "collapse_selection" "keep_primary_selection" ]; # unify what the escape key is doing
+        ret = [ "move_line_down" "goto_first_nonwhitespace" ]; # move to the start of the next line when pressing enter
+        C-s = [ ":write" ]; # save the buffer
+        C-q = [ ":quit" ]; # close the buffer
+        C-left = [ "move_prev_word_start" "move_char_left" "move_char_right" ]; # faster movement with the arrow keys
+        C-right = [ "move_next_word_start" "move_char_left" "move_char_right" ]; # faster movement with the arrow keys
       };
     };
   };

@@ -4,8 +4,6 @@
   c = "clear";
   cat = "bat";
 
-  edit = "micro";
-
   gaa = "git add --all";
   gc = "git commit";
   gl = "git log";
@@ -26,6 +24,8 @@
 
   reboot-now = "sudo reboot now";
   rm = "echo 'Use trash-put <file/directory> for using the trash. Use \\\\rm <file/directory> if you are sure.'; false";
+
+  sudo = "sudo "; # for shell aliases to be usable wiith sudo
 
   ### NixOS related ###
 
