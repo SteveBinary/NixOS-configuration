@@ -37,7 +37,7 @@
       };
     };
     kernel.sysctl."vm.swappines" = 10;
-    kernelPackages = pkgs.linuxPackages_6_6;
+    kernelPackages = pkgs.linuxPackages_6_8;
   };
 
   virtualisation.vmware.guest.enable = true; # this machine is a VMware VM

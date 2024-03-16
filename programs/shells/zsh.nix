@@ -4,8 +4,8 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
     autocd = true;
+    autosuggestion.enable = true;
     dotDir = ".config/zsh";
     history.path = ".config/zsh/zsh_history";
     oh-my-zsh = {
