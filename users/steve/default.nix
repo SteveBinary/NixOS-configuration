@@ -5,6 +5,7 @@
     ../../programs/direnv.nix
     ../../programs/fzf.nix
     ../../programs/helix.nix
+    ../../programs/kde-connect.nix
     ../../programs/tmux.nix
     ../../programs/vscode.nix
     ../../programs/shells
@@ -14,8 +15,12 @@
   home = {
     packages = with pkgs; [
       # desktop applications
+      brave
       firefox
+      jetbrains-toolbox
       kate
+      signal-desktop
+      thunderbird
       yakuake
 
       # terminal applications

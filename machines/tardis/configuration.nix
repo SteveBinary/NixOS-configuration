@@ -1,6 +1,10 @@
-{ pkgs, pkgs-stable, lib, machine, user, ... }:
+{ pkgs, pkgs-stable, nixos-hardware, lib, machine, user, ... }:
 
 {
+  imports = [
+    nixos-hardware.nixosModules.framework-16-7040-amd
+  ];
+
   ########## NixOS ################################################################################
 
   nix = {
@@ -24,6 +28,7 @@
   ########## boot #################################################################################
 
   boot = {
+    initrd.luks.devices."luks-2634ae65-a0f5-4938-aabe-52d2fc9f40aa".device = "/dev/disk/by-uuid/2634ae65-a0f5-4938-aabe-52d2fc9f40aa";
     loader = {
       grub = {
         enable = true;
@@ -40,15 +45,21 @@
     kernelPackages = pkgs.linuxPackages_6_8;
   };
 
-  virtualisation.vmware.guest.enable = true; # this machine is a VMware VM
-
   ########## networking ###########################################################################
 
   networking = {
     networkmanager.enable = true;
     hostName = machine;
     nftables.enable = true;
-    firewall.enable = true;
+    firewall = { 
+      enable = true;
+      allowedTCPPortRanges = [ 
+        { from = 1714; to = 1764; } # KDE Connect
+      ];  
+      allowedUDPPortRanges = [ 
+        { from = 1714; to = 1764; } # KDE Connect
+      ];  
+    };  
   };
 
   ########## services #############################################################################
@@ -64,14 +75,14 @@
       pulse.enable = true;
     };
     desktopManager.plasma6.enable = true;
+    displayManager = {
+      sddm.enable = true;
+      autoLogin.enable = true; # disable auto-login when logging in via fingerprint is supported
+      autoLogin.user = user;
+    };
     xserver = {
       enable = true;
       xkb.layout = "de";
-      displayManager = {
-        sddm.enable = true;
-        autoLogin.enable = true;
-        autoLogin.user = user;
-      };
     };
   };
 
@@ -101,7 +112,7 @@
   ########## users ################################################################################
 
   users.users = {
-    ${user} = {
+    "${user}" = {
       description = (import ../../lib/stringUtils.nix lib).upperCaseFirstLetter user;
       isNormalUser = true;
       createHome = true;
@@ -126,15 +137,16 @@
 
   environment.systemPackages = with pkgs; [
     bat
+    btop
     curl
     hdparm
     killall
     lshw
     lsscsi
+    ncdu
     pciutils
     trash-cli
     usbutils
     wget
-    xclip
   ];
 }

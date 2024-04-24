@@ -1,4 +1,4 @@
-{ nixpkgs, nixpkgs-stable, home-manager }:
+{ nixpkgs, nixpkgs-stable, nixos-hardware, home-manager }:
 
 { machine, system, user }:
 let
@@ -13,7 +13,7 @@ let
     config.allowUnfree = true;
   };
 
-  specialArgs = { inherit pkgs pkgs-stable home-manager machine system user; };
+  specialArgs = { inherit pkgs pkgs-stable nixos-hardware home-manager machine system user; };
 
 in
   nixpkgs.lib.nixosSystem {
