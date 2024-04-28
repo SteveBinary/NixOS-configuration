@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, nixos-hardware, lib, machine, user, ... }:
+{ pkgs, pkgs-stable, nixos-hardware, config, lib, machine, user, ... }:
 
 {
   imports = [
@@ -28,7 +28,7 @@
   ########## boot #################################################################################
 
   boot = {
-    initrd.luks.devices."luks-2634ae65-a0f5-4938-aabe-52d2fc9f40aa".device = "/dev/disk/by-uuid/2634ae65-a0f5-4938-aabe-52d2fc9f40aa";
+    initrd.luks.devices."luks-2634ae65-a0f5-4938-aabe-52d2fc9f40aa".device = "/dev/disk/by-uuid/2634ae65-a0f5-4938-aabe-52d2fc9f40aa"; # Swap
     loader = {
       grub = {
         enable = true;
@@ -43,19 +43,28 @@
     };
     kernel.sysctl."vm.swappines" = 10;
     kernelPackages = pkgs.linuxPackages_6_8;
+    extraModulePackages = with config.boot.kernelPackages; [
+      rtl88xxau-aircrack # for USB WiFi adapter
+    ];
   };
 
   ########## networking ###########################################################################
 
   networking = {
-    networkmanager.enable = true;
     hostName = machine;
+    networkmanager.enable = true;
     nftables.enable = true;
     firewall = { 
       enable = true;
+      allowedTCPPorts = [
+        53317 # LocalSend
+      ];
       allowedTCPPortRanges = [ 
         { from = 1714; to = 1764; } # KDE Connect
-      ];  
+      ];
+      allowedUDPPorts = [
+        53317 # LocalSend
+      ];
       allowedUDPPortRanges = [ 
         { from = 1714; to = 1764; } # KDE Connect
       ];  
@@ -65,9 +74,17 @@
   ########## services #############################################################################
 
   services = {
-    printing.enable = true;
     flatpak.enable = true;
     fwupd.enable = true;
+    printing = {
+      enable = true;
+      drivers = [ pkgs.hplip ]; # HP printer
+    };
+    avahi = { # for discovery of network devices like printers
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -75,11 +92,7 @@
       pulse.enable = true;
     };
     desktopManager.plasma6.enable = true;
-    displayManager = {
-      sddm.enable = true;
-      autoLogin.enable = true; # disable auto-login when logging in via fingerprint is supported
-      autoLogin.user = user;
-    };
+    displayManager.sddm.enable = true;
     xserver = {
       enable = true;
       xkb.layout = "de";
@@ -135,6 +148,9 @@
   # needed to set zsh in environment.shells although it might also be enabled in a home-manager module
   programs.zsh.enable = true;
 
+  # run dynamically linked executables intended for generic Linux environments
+  programs.nix-ld.enable = true;
+
   environment.systemPackages = with pkgs; [
     bat
     btop
@@ -146,6 +162,7 @@
     ncdu
     pciutils
     trash-cli
+    unzip
     usbutils
     wget
   ];

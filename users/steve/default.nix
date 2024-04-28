@@ -15,10 +15,14 @@
   home = {
     packages = with pkgs; [
       # desktop applications
+      bitwarden-desktop
       brave
       firefox
-      jetbrains-toolbox
+      jetbrains.idea-ultimate
       kate
+      libreoffice-qt
+      localsend
+      protonmail-bridge-gui
       signal-desktop
       thunderbird
       yakuake
@@ -27,7 +31,6 @@
       file
       jq
       kdash
-      kubectl
       lsd
       fastfetch
       tldr
