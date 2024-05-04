@@ -7,6 +7,7 @@
     ../../programs/helix.nix
     ../../programs/kde-connect.nix
     ../../programs/tmux.nix
+    ../../programs/virt-manager-extra.nix
     ../../programs/vscode.nix
     ../../programs/shells
     (import ../../programs/git.nix { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
@@ -19,13 +20,14 @@
       brave
       firefox
       jetbrains.idea-ultimate
-      kate
+      kdePackages.kate
+      kdePackages.neochat
+      kdePackages.yakuake
       libreoffice-qt
       localsend
       protonmail-bridge-gui
       signal-desktop
       thunderbird
-      yakuake
 
       # terminal applications
       file

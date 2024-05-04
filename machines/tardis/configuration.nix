@@ -48,12 +48,25 @@
     ];
   };
 
+  ########## virtualisation #######################################################################
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };  
+
   ########## networking ###########################################################################
 
   networking = {
     hostName = machine;
     networkmanager.enable = true;
-    nftables.enable = true;
     firewall = { 
       enable = true;
       allowedTCPPorts = [
@@ -67,7 +80,7 @@
       ];
       allowedUDPPortRanges = [ 
         { from = 1714; to = 1764; } # KDE Connect
-      ];  
+      ];
     };  
   };
 
@@ -129,7 +142,11 @@
       description = (import ../../lib/stringUtils.nix lib).upperCaseFirstLetter user;
       isNormalUser = true;
       createHome = true;
-      extraGroups = [ "wheel" "networkmanager" ];
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+        "libvirtd" # for virt-manager
+      ];
     };
   };
 
@@ -145,7 +162,6 @@
 
   environment.shells = [ pkgs.zsh ];
   environment.pathsToLink = [ "/share/zsh" ];
-  # needed to set zsh in environment.shells although it might also be enabled in a home-manager module
   programs.zsh.enable = true;
 
   # run dynamically linked executables intended for generic Linux environments
@@ -155,15 +171,25 @@
     bat
     btop
     curl
-    hdparm
     killall
-    lshw
-    lsscsi
+    mtr
     ncdu
-    pciutils
+    podman-tui
+    ripgrep
     trash-cli
     unzip
-    usbutils
     wget
+
+    # mostly for the Info Center app to display all sorts of information
+    aha
+    clinfo
+    glxinfo
+    hdparm
+    lshw
+    lsscsi
+    pciutils
+    usbutils
+    vulkan-tools
+    wayland-utils
   ];
 }

@@ -11,8 +11,6 @@
   gpush = "git push";
   gs = "git status";
 
-  k = "kubectl";
-
   l = "lsd --long --group-directories-first";
   ls = "lsd --long --group-directories-first";
   la = "lsd --all --long --group-directories-first";
