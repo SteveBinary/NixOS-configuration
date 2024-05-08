@@ -25,6 +25,7 @@
       kdePackages.yakuake
       libreoffice-qt
       localsend
+      obsidian
       protonmail-bridge-gui
       signal-desktop
       thunderbird

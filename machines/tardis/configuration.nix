@@ -103,6 +103,7 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      # jack.enable = true;
     };
     desktopManager.plasma6.enable = true;
     displayManager.sddm.enable = true;
@@ -114,6 +115,7 @@
 
   sound.enable = true;
   hardware.pulseaudio.enable = false;
+  hardware.bluetooth.enable = true;
   security.rtkit.enable = true; # used by pulseaudio
 
   ########## localizaiton #########################################################################
@@ -171,6 +173,7 @@
     bat
     btop
     curl
+    iw
     killall
     mtr
     ncdu
