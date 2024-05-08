@@ -20,6 +20,7 @@
       brave
       firefox
       jetbrains.idea-ultimate
+      kdePackages.isoimagewriter
       kdePackages.kate
       kdePackages.neochat
       kdePackages.yakuake
