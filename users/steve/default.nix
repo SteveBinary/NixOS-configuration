@@ -19,6 +19,8 @@
       bitwarden-desktop
       brave
       firefox
+      handbrake
+      haruna
       jetbrains.idea-ultimate
       kdePackages.isoimagewriter
       kdePackages.kate
