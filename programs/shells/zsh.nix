@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
 {
-  home.sessionVariables = {
-    ZSH_TMUX_AUTOSTART = "true"; # used by Oh My ZSH tmux plugin
-  };
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
