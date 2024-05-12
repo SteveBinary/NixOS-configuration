@@ -30,6 +30,7 @@
       localsend
       obsidian
       protonmail-bridge-gui
+      rustdesk # change to rustdesk-flutter when the collisions with LocalSend related to Flutter are resolved
       signal-desktop
       thunderbird
 
