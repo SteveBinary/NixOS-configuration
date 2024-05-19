@@ -24,6 +24,9 @@
       jetbrains.idea-ultimate
       kdePackages.isoimagewriter
       kdePackages.kate
+      kdePackages.kdepim-addons
+      kdePackages.ksystemlog
+      kdePackages.merkuro
       kdePackages.neochat
       kdePackages.yakuake
       libreoffice-qt
