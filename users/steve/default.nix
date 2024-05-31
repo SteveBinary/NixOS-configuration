@@ -18,6 +18,7 @@
       # desktop applications
       bitwarden-desktop
       brave
+      dos2unix
       firefox
       handbrake
       haruna
@@ -29,7 +30,7 @@
       kdePackages.merkuro
       kdePackages.neochat
       kdePackages.yakuake
-      libreoffice-qt
+      libreoffice-qt6-fresh
       localsend
       obsidian
       protonmail-bridge-gui
