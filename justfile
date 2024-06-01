@@ -1,7 +1,10 @@
 default_machine := `hostname`
 
-default:
-    @just --version && just --list --unsorted && just --evaluate --unsorted
+@default:
+    just --version
+    echo "Variables:"
+    just --evaluate --unsorted | sed 's/^/    /'
+    just --list --unsorted
 
 config-switch machine=default_machine:
     sudo nixos-rebuild switch --flake {{ justfile_directory() }}#{{ machine }}
