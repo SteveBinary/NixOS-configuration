@@ -6,10 +6,10 @@ default:
 config-switch machine=default_machine:
     sudo nixos-rebuild switch --flake {{ justfile_directory() }}#{{ machine }}
 
-flake-update:
+update-flake:
     sudo nix flake update {{ justfile_directory() }}
 
-update-system: flake-update config-switch
+update-system: update-flake config-switch
 
 collect-garbage *args:
     sudo nix-collect-garbage {{ args }}

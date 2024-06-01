@@ -6,13 +6,13 @@ Configuration files for my NixOS machines.
 
 1. Clone this repo into the home directory of a NixOS-system.
 2. Setting up a machine for the first time, running the following command to activate the correct configuration is necessary.
-   Later, the shell alias `config-switch` was generated with the `<MACHINE>` backed in.
    ```shell
-   sudo nixos-rebuild switch --flake ~/NixOS-configuration#<MACHINE>
+   just config-switch <<machine>>
    ```
-3. After setting up the machine with the previous command, there is a shell alias called `update-packages`.
+   You might have to enter a nix-shell with the `just` package to execute this command.
+3. After setting up the machine with the previous command, you can execute `just update-system`.
    It updates the flake inputs and saves the new versions in the `flake.lock` to make all software versions used in the system truly reproducible.
-   It automatically calls `config-switch` to build and apply the updates immediately.
+   It automatically builds and applies the updates immediately.
 
 ## Project structure
 
