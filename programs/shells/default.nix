@@ -6,6 +6,5 @@
     ./zsh.nix
   ];
 
-  home.shellAliases = import ./shell-aliases.nix { inherit machine; };
+  home.shellAliases = import ./shell-aliases.nix;
 }
-
