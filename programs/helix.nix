@@ -14,8 +14,6 @@
       theme = "catppuccin_mocha";
 
       editor = {
-        # automatically save when the terminal loses focus
-        auto-save = true;
         # show currently open buffers, only when more than one exists
         bufferline = "multiple";
         # color the mode indicator
