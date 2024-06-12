@@ -6,10 +6,10 @@
     ../../programs/fzf.nix
     ../../programs/helix.nix
     ../../programs/kde-connect.nix
+    ../../programs/shells
     ../../programs/tmux.nix
     ../../programs/virt-manager-extra.nix
     ../../programs/vscode.nix
-    ../../programs/shells
     (import ../../programs/git.nix { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
   ];
 
