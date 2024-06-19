@@ -20,8 +20,14 @@
               background = "#ffffff";
               foreground = "#000000";
               leading_diamond = "";
-              trailing_diamond = "";
-              template = "{{ .Icon }} ";
+              template = "{{ if .WSL }}WSL at {{ end }}{{.Icon}} ";
+            }
+            {
+              background = "#40189c";
+              foreground = "#ffffff";
+              style = "diamond";
+              template = "❘|｜ {{ .UserName }}@{{ .HostName }} ";
+              type = "session";
             }
             {
               background = "#0000ff";
