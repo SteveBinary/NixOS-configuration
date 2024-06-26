@@ -84,7 +84,7 @@
     };  
   };
 
-  ########## services #############################################################################
+  ########## services, sound, hardware ############################################################
 
   services = {
     flatpak.enable = true;
@@ -110,13 +110,21 @@
     xserver = {
       enable = true;
       xkb.layout = "de";
+      videoDrivers = [ "amdgpu" ]; # is actually for X11 and Wayland
     };
   };
 
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.bluetooth.enable = true;
   security.rtkit.enable = true; # used by pulseaudio
+
+  hardware = {
+    pulseaudio.enable = true;
+    bluetooth.enable = true;
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+  };
 
   ########## localizaiton #########################################################################
 
@@ -168,6 +176,8 @@
 
   # run dynamically linked executables intended for generic Linux environments
   programs.nix-ld.enable = true;
+
+  programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
     bat
