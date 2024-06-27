@@ -178,7 +178,6 @@
   programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
-    bat
     btop
     curl
     iw

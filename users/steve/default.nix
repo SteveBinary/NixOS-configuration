@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../programs/bat.nix
     ../../programs/direnv.nix
     ../../programs/fzf.nix
     ../../programs/helix.nix
