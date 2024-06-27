@@ -98,13 +98,13 @@
       nssmdns4 = true;
       openFirewall = true;
     };
-    # pipewire = {
-      # enable = true;
-      # alsa.enable = true;
-      # alsa.support32Bit = true;
-      # pulse.enable = true;
-      # jack.enable = true;
-    # };
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
     desktopManager.plasma6.enable = true;
     displayManager.sddm.enable = true;
     xserver = {
@@ -114,11 +114,9 @@
     };
   };
 
-  sound.enable = true;
-  security.rtkit.enable = true; # used by pulseaudio
+  security.rtkit.enable = true; # used by PipeWire
 
   hardware = {
-    pulseaudio.enable = true;
     bluetooth.enable = true;
     graphics = {
       enable = true;
