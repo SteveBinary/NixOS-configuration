@@ -16,6 +16,7 @@
         pink = "#F5C2E7";
         lavender = "#B4BEFE";
         blue = "#89B4FA";
+        error = "#D0164A";
       };
       secondary_prompt = {
         template = " ";
@@ -40,17 +41,19 @@
             }
             {
               type = "path";
-              template = "{{ .Path }}";
+              template = "{{ if not .Writable }}<p:error> </>{{ end }}{{ .Path }} ";
               style = "plain";
               foreground = "p:pink";
               properties = {
-                folder_icon = ".. ..";
+                style = "full";
                 home_icon = "~";
-                style = "agnoster_short";
               };
             }
             {
               type = "git";
+              template = "{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}" +
+                         "{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}" +
+                         "{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}";
               style = "plain";
               foreground = "p:lavender";
               properties = {
