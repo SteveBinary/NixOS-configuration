@@ -59,6 +59,7 @@
       Icon=folder-script
     '';
 
+    preferXdgDirectories = true;
     stateVersion = "24.11";
   };
 
