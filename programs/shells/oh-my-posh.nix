@@ -6,10 +6,11 @@
     enableBashIntegration = true;
     enableZshIntegration = true;
     settings = {
-      version = 333;
+      version = 2;
       auto_upgrade = false;
       disable_notice = true;
       final_space = true;
+      terminal_background = "#1E1E2E";
       palette = {
         os = "#ACB0BE";
         closer = "p:os";
