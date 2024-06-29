@@ -6,7 +6,7 @@
     enableBashIntegration = true;
     enableZshIntegration = true;
     settings = {
-      version = 2;
+      version = 333;
       auto_upgrade = false;
       disable_notice = true;
       final_space = true;
@@ -26,16 +26,16 @@
         {
           type = "prompt";
           alignment = "left";
+          newline = true;
           segments = [
             {
               type = "os";
-              template = "{{.Icon}} ";
+              template = "{{ if .WSL }}WSL at {{ end }}{{ .Icon }}";
               style = "plain";
               foreground = "p:os";
             }
             {
               type = "session";
-              template = "{{ .UserName }}@{{ .HostName }} ";
               style = "plain";
               foreground = "p:blue";
             }
@@ -50,8 +50,17 @@
               };
             }
             {
+              type = "kubectl";
+              template = "󱃾 {{ .Context }}{{ if .Namespace }}::{{ .Namespace }}{{ end }} ";
+              style = "plain";
+              foreground = "p:blue";
+              propterties = {
+                parse_kubeconfig = true;
+              };
+            }
+            {
               type = "git";
-              template = "{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}" +
+              template = "{{ .UpstreamIcon }}{{ .HEAD }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}" +
                          "{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}" +
                          "{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}";
               style = "plain";
@@ -76,6 +85,11 @@
           alignment = "left";
           newline = true;
           segments = [
+            {
+              type = "root";
+              style = "plain";
+              foreground = "p:error";
+            }
             {
               type = "text";
               template = "";

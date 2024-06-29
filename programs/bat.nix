@@ -18,5 +18,8 @@
 
   home.sessionVariables = {
     BAT_THEME = "catppuccin-mocha";
+
+    # workaround so that bat prints Unicode characters correctly, see: https://github.com/sharkdp/bat/issues/2578
+    LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p";
   };
 }
