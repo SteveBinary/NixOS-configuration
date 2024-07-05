@@ -67,6 +67,7 @@
               style = "plain";
               foreground = "p:lavender";
               properties = {
+                git_icon = " ";
                 branch_icon = " ";
                 cherry_pick_icon = " ";
                 commit_icon = " ";
