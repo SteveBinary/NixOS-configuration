@@ -10,12 +10,15 @@ config-switch machine=default_machine:
     sudo nixos-rebuild switch --flake {{ justfile_directory() }}#{{ machine }}
 
 update-flake:
-    sudo nix flake update {{ justfile_directory() }}
+    nix flake update --flake {{ justfile_directory() }}
 
 update-system: update-flake config-switch
 
 collect-garbage *args:
     sudo nix-collect-garbage {{ args }}
+
+free-space: (collect-garbage "-d")
+    nix store optimise
 
 list-generations:
     sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
