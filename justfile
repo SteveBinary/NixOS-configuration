@@ -10,7 +10,7 @@ config-switch machine=default_machine:
     sudo nixos-rebuild switch --flake {{ justfile_directory() }}#{{ machine }}
 
 update-flake:
-    nix flake update --flake {{ justfile_directory() }}
+    sudo nix flake update --flake {{ justfile_directory() }}
 
 update-system: update-flake config-switch
 
