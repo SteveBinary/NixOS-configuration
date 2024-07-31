@@ -23,6 +23,7 @@
       # desktop applications
 
       # terminal applications
+      dnsutils
       file
       jq
       lsd
