@@ -2,24 +2,27 @@
 
 {
   imports = [
-    ../../programs/bat.nix
-    ../../programs/direnv.nix
-    ../../programs/fzf.nix
-    ../../programs/helix.nix
-    ../../programs/kde-connect.nix
+    ../../programs/bat
+    ../../programs/direnv
+    ../../programs/fzf
+    ../../programs/helix
+    ../../programs/kde-connect
+    ../../programs/kitty
+    ../../programs/mqtt-explorer
     ../../programs/shells
-    ../../programs/tmux.nix
-    ../../programs/virt-manager-extra.nix
-    ../../programs/vscode.nix
-    (import ../../programs/git.nix { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
+    ../../programs/tmux
+    ../../programs/virt-manager-extra
+    ../../programs/vscode
+    ../../programs/zellij
+    (import ../../programs/git { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
   ];
 
   home = {
     packages = with pkgs; [
       # desktop applications
       bitwarden-desktop
+      bottles
       brave
-      dos2unix
       firefox
       handbrake
       haruna
@@ -40,6 +43,7 @@
       thunderbird
 
       # terminal applications
+      dos2unix
       file
       jq
       kdash
@@ -47,6 +51,7 @@
       fastfetch
       tldr
       tree
+      yazi
     ];
 
     file."NixOS-configuration/.directory".text = ''
