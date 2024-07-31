@@ -146,8 +146,8 @@
   ########## users ################################################################################
 
   users.users = {
-    "${user}" = {
-      description = (import ../../lib/stringUtils.nix lib).upperCaseFirstLetter user;
+    "${user.name}" = {
+      description = (import ../../lib/stringUtils.nix lib).upperCaseFirstLetter user.name;
       isNormalUser = true;
       createHome = true;
       extraGroups = [

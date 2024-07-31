@@ -1,20 +1,22 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, pkgs-stable, programs, ... }:
 
 {
-  imports = [
-    ../../programs/bat
-    ../../programs/direnv
-    ../../programs/fzf
-    ../../programs/helix
-    ../../programs/kde-connect
-    ../../programs/kitty
-    ../../programs/mqtt-explorer
-    ../../programs/shells
-    ../../programs/tmux
-    ../../programs/virt-manager-extra
-    ../../programs/vscode
-    ../../programs/zellij
-    (import ../../programs/git { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
+  imports = with programs; [
+    bat
+    direnv
+    fzf
+    helix
+    kde-connect
+    kitty
+    mqtt-explorer
+    shells
+    tmux
+    virt-manager-extra
+    vscode
+    zellij
+    (import git { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
+
+    ./home-files.nix
   ];
 
   home = {
@@ -53,16 +55,6 @@
       tree
       yazi
     ];
-
-    file."NixOS-configuration/.directory".text = ''
-      [Desktop Entry]
-      Icon=./programs/extras/images/folder-nix-snowflake-light.svg
-    '';
-
-    file."Projects/.directory".text = ''
-      [Desktop Entry]
-      Icon=folder-script
-    '';
 
     preferXdgDirectories = true;
     stateVersion = "24.11";

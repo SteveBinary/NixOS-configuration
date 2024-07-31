@@ -1,4 +1,4 @@
-{ nixpkgs, nixpkgs-stable, nixos-hardware, home-manager }:
+{ nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, programs }:
 
 { machine, system, user }:
 let
@@ -13,7 +13,7 @@ let
     config.allowUnfree = true;
   };
 
-  specialArgs = { inherit pkgs pkgs-stable nixos-hardware home-manager machine system user; };
+  specialArgs = { inherit pkgs pkgs-stable nixos-hardware home-manager programs machine system user; };
 
 in
   nixpkgs.lib.nixosSystem {
@@ -23,7 +23,7 @@ in
       home-manager.nixosModules.home-manager {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
-        home-manager.users.${user} = ../users/${user};
+        home-manager.users.${user.name} = ../users/${user.profile}/${user.name};
         home-manager.extraSpecialArgs = specialArgs;
       }
     ];

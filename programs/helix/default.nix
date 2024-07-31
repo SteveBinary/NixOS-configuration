@@ -23,9 +23,11 @@
         # use relative line numbers
         line-number = "relative";
         # diable mouse support
-        mouse = false;
+        mouse = true;
         # show a ruler at column 150
         rulers = [ 150 ];
+        # force truecolor support, currently needed when running in WSL
+        true-color = true;
       };
 
       editor.cursor-shape = {

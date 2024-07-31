@@ -13,7 +13,9 @@
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, ... }:
   let
-    makeSystem = import ./lib/makeSystem.nix { inherit nixpkgs nixpkgs-stable nixos-hardware home-manager; };
+    programs = import ./programs;
+    makeSystem = import ./lib/makeSystem.nix { inherit nixpkgs nixpkgs-stable nixos-hardware home-manager programs; };
+    makeHome = import ./lib/makeHome.nix { inherit nixpkgs nixpkgs-stable home-manager programs; };
 
     devShellSupportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
     forEachDevShellSupportedSystem = f: nixpkgs.lib.genAttrs devShellSupportedSystems (system: f {
@@ -24,7 +26,19 @@
       tardis = makeSystem {
         machine = "tardis";
         system = "x86_64-linux";
-        user = "steve";
+        user = {
+          profile = "personal";
+          name = "steve";
+        };
+      };
+    };
+    homeConfigurations = {
+      work-steve = makeHome {
+        system = "x86_64-linux";
+        user = {
+          profile = "work";
+          name = "steve";
+        };
       };
     };
     devShells = forEachDevShellSupportedSystem ({ pkgs }: {
