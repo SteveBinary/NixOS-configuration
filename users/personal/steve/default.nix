@@ -8,13 +8,12 @@
     helix
     kde-connect
     kitty
-    mqtt-explorer
     shells
     tmux
     virt-manager-extra
     vscode
     zellij
-    (import git { inherit pkgs; userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
+    (import git { userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
 
     ./home-files.nix
   ];
@@ -40,7 +39,7 @@
       localsend
       obsidian
       protonmail-bridge-gui
-      rustdesk # change to rustdesk-flutter when the collisions with LocalSend related to Flutter are resolved
+      # rustdesk # change to rustdesk-flutter when the collisions with LocalSend related to Flutter are resolved, see https://github.com/NixOS/nixpkgs/issues/254265
       signal-desktop
       thunderbird
 
@@ -48,7 +47,6 @@
       dos2unix
       file
       jq
-      kdash
       lsd
       fastfetch
       tldr

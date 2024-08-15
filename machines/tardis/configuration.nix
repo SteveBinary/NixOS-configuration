@@ -1,8 +1,8 @@
-{ pkgs, pkgs-stable, nixos-hardware, config, lib, machine, user, ... }:
+{ pkgs, pkgs-stable, config, lib, inputs, machine, user, ... }:
 
 {
   imports = [
-    nixos-hardware.nixosModules.framework-16-7040-amd
+    inputs.nixos-hardware.nixosModules.framework-16-7040-amd
   ];
 
   ########## NixOS ################################################################################
