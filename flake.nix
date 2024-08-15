@@ -9,17 +9,22 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, ... }:
+  outputs = inputs@{ self, ... }:
   let
     programs = import ./programs;
-    makeSystem = import ./lib/makeSystem.nix { inherit nixpkgs nixpkgs-stable nixos-hardware home-manager programs; };
-    makeHome = import ./lib/makeHome.nix { inherit nixpkgs nixpkgs-stable home-manager programs; };
+    makeSystem = import ./lib/makeSystem.nix { inherit inputs programs; };
+    makeHome = import ./lib/makeHome.nix { inherit inputs programs; };
 
     devShellSupportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-    forEachDevShellSupportedSystem = f: nixpkgs.lib.genAttrs devShellSupportedSystems (system: f {
-      pkgs = import nixpkgs { inherit system; };
+    forEachDevShellSupportedSystem = f: inputs.nixpkgs.lib.genAttrs devShellSupportedSystems (system: f {
+      pkgs = import inputs.nixpkgs { inherit system; };
     });
   in {
     nixosConfigurations = {
@@ -27,24 +32,26 @@
         machine = "tardis";
         system = "x86_64-linux";
         user = {
-          profile = "personal";
           name = "steve";
+          profile = "personal";
         };
       };
     };
     homeConfigurations = {
-      work-steve = makeHome {
+      work-sheilen = makeHome {
         system = "x86_64-linux";
         user = {
+          name = "sheilen";
           profile = "work";
-          name = "steve";
         };
       };
     };
     devShells = forEachDevShellSupportedSystem ({ pkgs }: {
       default = pkgs.mkShell {
         packages = with pkgs; [
+          age
           just
+          sops
         ];
       };
     });

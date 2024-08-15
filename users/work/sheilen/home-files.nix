@@ -1,7 +1,9 @@
-{ pkgs, user, ... }:
+{ pkgs, inputs, user, ... }:
 
 {
   home.file = {
+    ".hushlogin".text = ""; # disable the login banner; also disables the warning "groups: cannot find name for group ID ..." because of LDAP
+
     "Projects/.directory".text = ''
       [Desktop Entry]
       Icon=folder-script
@@ -18,10 +20,13 @@
           just --list --unsorted
 
       switch:
-          home-manager switch --flake {{ justfile_directory() }}#${ user.profile }-${ user.name }
+          home-manager switch --flake {{ justfile_directory() }}#${user.profile}-${user.name}
 
       update-flake:
           nix flake update --flake {{ justfile_directory() }}
+
+      update-desktop-entries:
+          sudo /usr/bin/update-desktop-database
 
       update: update-flake switch
 

@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  home.shellAliases = {
+    # toggle the environment variable 'SHOW_KUBERNETES_INFO_IN_PROMPT' between 'true' and 'false'
+    kk = ''export SHOW_KUBERNETES_INFO_IN_PROMPT=$( [ "$SHOW_KUBERNETES_INFO_IN_PROMPT" = "true" ] && echo "false" || echo "true" )'';
+  };
+
   programs.oh-my-posh = {
     enable = true;
     enableBashIntegration = true;
@@ -51,15 +56,6 @@
               };
             }
             {
-              type = "kubectl";
-              template = "󱃾 {{ .Context }}{{ if .Namespace }}::{{ .Namespace }}{{ end }} ";
-              style = "plain";
-              foreground = "p:blue";
-              propterties = {
-                parse_kubeconfig = true;
-              };
-            }
-            {
               type = "git";
               template = "{{ .UpstreamIcon }}{{ .HEAD }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}" +
                          "{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}" +
@@ -78,6 +74,22 @@
                 rebase_icon = " ";
                 revert_icon = " ";
                 tag_icon = " ";
+              };
+            }
+          ];
+        }
+        {
+          type = "prompt";
+          alignment = "left";
+          newline = true;
+          segments = [
+            {
+              type = "kubectl";
+              template = "{{ if eq \"true\" .Env.SHOW_KUBERNETES_INFO_IN_PROMPT }}󱃾 {{ .Context }}::{{ if .Namespace }}{{ .Namespace }}{{ else }}default{{ end }}{{ end }}";
+              style = "plain";
+              foreground = "p:blue";
+              propterties = {
+                parse_kubeconfig = false;
               };
             }
           ];

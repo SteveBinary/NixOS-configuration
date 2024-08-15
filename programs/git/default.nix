@@ -1,12 +1,16 @@
-{ pkgs, userName, userEmail, ... }:
+{ userName ? null, userEmail ? null, askpass ? null, includes ? [] }:
+
+{ pkgs, lib, ... }:
 
 {
   programs.git = {
     enable = true;
-    inherit userName userEmail;
+    userName = lib.mkIf (userName != null) userName;
+    userEmail = lib.mkIf (userEmail != null) userEmail;
     extraConfig = {
       init.defaultbranch = "main";
-      core.askpass = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+      core.askpass = lib.mkIf (askpass != null) askpass;
     };
+    inherit includes;
   };
 }

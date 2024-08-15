@@ -1,26 +1,27 @@
-{ nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, programs }:
+{ inputs, programs }:
 
 { machine, system, user }:
 let
 
-  pkgs = import nixpkgs {
+  pkgs = import inputs.nixpkgs {
     inherit system;
     config.allowUnfree = true;
   };
 
-  pkgs-stable = import nixpkgs-stable {
+  pkgs-stable = import inputs.nixpkgs-stable {
     inherit system;
     config.allowUnfree = true;
   };
 
-  specialArgs = { inherit pkgs pkgs-stable nixos-hardware home-manager programs machine system user; };
+  specialArgs = { inherit pkgs pkgs-stable inputs programs machine system user; };
 
 in
-  nixpkgs.lib.nixosSystem {
+  inputs.nixpkgs.lib.nixosSystem {
     inherit specialArgs;
     modules = [
       ../machines/${machine}
-      home-manager.nixosModules.home-manager {
+      inputs.sops-nix.nixosModules.sops
+      inputs.home-manager.nixosModules.home-manager {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.users.${user.name} = ../users/${user.profile}/${user.name};

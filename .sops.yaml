@@ -1,0 +1,12 @@
+keys:
+  - &key_work age1hm8n907arplhq9mzvwkwt2whytw0qjgrfarzyhht7kg3mhdpvpgq94v24k
+
+creation_rules:
+  - path_regex: users/work/sheilen/secrets.yaml$
+    key_groups:
+      - age:
+        - *key_work
+
+stores:
+  yaml:
+    indent: 2
