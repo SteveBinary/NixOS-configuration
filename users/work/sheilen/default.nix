@@ -23,6 +23,7 @@
       enable = true;
       noSandbox = true;
     };
+    oh-my-posh.enable = true;
     shells = {
       bash = {
         enable = true;
