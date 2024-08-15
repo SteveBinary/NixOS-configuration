@@ -34,13 +34,13 @@ Utilities and helper functions.
 
 Configurations and hardware configurations specific to the respective machine.
 
-### programs
+### homeManagerModules
 
-Mostly Home Manger modules for applications as a simple unit that can be imported into other modules.
+Home Manger modules for applications as a simple unit that can be imported into other modules.
 
 ### users/`<<profile>>`
 
-Home Manager modules for a specific user.
+Home Manager configuration for a specific user.
 That's the place where to use the previously defined Home Manager modules of the applications.
-A `<<profile>>` is just a way to distinguish between users with the same name but different purposes;
+A `<<profile>>` is just a way to distinguish between users with different purposes and potentially same names;
 like one for your personal system and one for your work computer.

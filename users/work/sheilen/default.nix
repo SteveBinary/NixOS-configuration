@@ -1,30 +1,41 @@
-{ pkgs, pkgs-stable, config, programs, user, ... }:
+{ pkgs, pkgs-stable, config, user, ... }:
 
 {
-  imports = with programs; [
-    bat
-    direnv
-    fzf
-    helix
-    shells
-    zellij
-
-    (import mqtt-explorer { noSandbox = true; })
-    (import git {
-      askpass = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
-      includes = [
-        { path = config.sops.secrets.git_user_information.path; }
-      ];
-    })
-
+  imports = [
+    ../../../homeManagerModules
     ./fonts.nix
     ./home-files.nix
   ];
 
-  programs.bash.bashrcExtra = ''
-    # changing the default shell for a user is not allowed, so this workaround is needed
-    if [ -z "$ZSH_VERSION" ]; then exec /home/${user.name}/.nix-profile/bin/zsh; fi
-  '';
+  my.programs = {
+    bat.enable = true;
+    direnv.enable = true;
+    fzf.enable = true;
+    git = {
+      enable = true;
+      askpass = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
+      includes = [
+        { path = config.sops.secrets.git_user_information.path; }
+      ];
+    };
+    helix.enable = true;
+    mqtt-explorer = {
+      enable = true;
+      noSandbox = true;
+    };
+    shells = {
+      bash = {
+        enable = true;
+        bashrcExtra = ''
+          # changing the default shell for a user is not allowed, so this workaround is needed
+          if [ -z "$ZSH_VERSION" ]; then exec /home/${user.name}/.nix-profile/bin/zsh; fi
+        '';
+      };
+      zsh.enable = true;
+    };
+    zellij.enable = true;
+  };
+
 
   home = {
     packages = with pkgs; [

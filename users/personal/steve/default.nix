@@ -1,22 +1,36 @@
-{ pkgs, pkgs-stable, programs, ... }:
+{ pkgs, pkgs-stable, ... }:
 
 {
-  imports = with programs; [
-    bat
-    direnv
-    fzf
-    helix
-    kde-connect
-    kitty
-    shells
-    tmux
-    virt-manager-extra
-    vscode
-    zellij
-    (import git { userName = "SteveBinary"; userEmail = "SteveBinary@users.noreply.github.com"; })
-
+  imports = [
+    ../../../homeManagerModules
     ./home-files.nix
   ];
+
+  my.programs = {
+    bat.enable = true;
+    direnv.enable = true;
+    fzf.enable = true;
+    git = {
+      enable = true;
+      userName = "SteveBinary";
+      userEmail = "SteveBinary@users.noreply.github.com";
+      askpass = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+    };
+    helix.enable = true;
+    kitty.enable = true;
+    oh-my-posh.enable = true;
+    shells = {
+      bash.enable = true;
+      zsh.enable = true;
+    };
+    tmux.enable = true;
+    virt-manager-extra.enable = true;
+    zellij.enable = true;    
+  };
+
+  my.services = {
+    kde-connect.enable = true;
+  };
 
   home = {
     packages = with pkgs; [

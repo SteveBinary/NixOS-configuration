@@ -18,9 +18,8 @@
 
   outputs = inputs@{ self, ... }:
   let
-    programs = import ./programs;
-    makeSystem = import ./lib/makeSystem.nix { inherit inputs programs; };
-    makeHome = import ./lib/makeHome.nix { inherit inputs programs; };
+    makeSystem = import ./lib/makeSystem.nix { inherit inputs; };
+    makeHome = import ./lib/makeHome.nix { inherit inputs; };
 
     devShellSupportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
     forEachDevShellSupportedSystem = f: inputs.nixpkgs.lib.genAttrs devShellSupportedSystems (system: f {

@@ -1,9 +1,8 @@
-{ inputs, programs }:
+{ inputs }:
 
 { system, user }:
 
 let
-
   pkgs = import inputs.nixpkgs {
     inherit system;
     config.allowUnfree = true;
@@ -14,8 +13,7 @@ let
     config.allowUnfree = true;
   };
 
-  specialArgs = { inherit pkgs pkgs-stable inputs programs system user; };
-
+  specialArgs = { inherit pkgs pkgs-stable inputs system user; };
 in
   inputs.home-manager.lib.homeManagerConfiguration {
     inherit pkgs;

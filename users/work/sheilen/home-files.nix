@@ -11,7 +11,7 @@
 
     "NixOS-configuration/.directory".text = ''
       [Desktop Entry]
-      Icon=./programs/extras/images/folder-nix-snowflake-light.svg
+      Icon=./assets/images/folder-nix-snowflake-light.svg
     '';
 
     "NixOS-configuration/justfile".text = ''
