@@ -34,9 +34,13 @@ Utilities and helper functions.
 
 Configurations and hardware configurations specific to the respective machine.
 
+### nixosModules
+
+NixOS modules.
+
 ### homeManagerModules
 
-Home Manger modules for applications as a simple unit that can be imported into other modules.
+Home Manger modules.
 
 ### users/`<<profile>>`
 

@@ -2,24 +2,18 @@
 
 {
   imports = [
+    ../../nixosModules
     inputs.nixos-hardware.nixosModules.framework-16-7040-amd
   ];
 
-  ########## NixOS ################################################################################
+  ########## My NixOS modules #####################################################################
 
-  nix = {
-    package = pkgs.nixVersions.latest;
-    settings = {
-      experimental-features = [ "flakes" "nix-command" ];
-      auto-optimise-store = true;
-      warn-dirty = false;
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
+  my = {
+    common-utilities.enable = true;
+    nix.enable = true;
   };
+
+  ########## NixOS ################################################################################
 
   nixpkgs.config.allowUnfree = true;
 
@@ -178,18 +172,6 @@
   programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
-    btop
-    curl
-    iw
-    killall
-    mtr
-    ncdu
-    podman-tui
-    ripgrep
-    trash-cli
-    unzip
-    wget
-
     # mostly for the Info Center app to display all sorts of information
     aha
     clinfo
