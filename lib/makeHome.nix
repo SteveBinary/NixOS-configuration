@@ -1,4 +1,4 @@
-{ inputs }:
+{ inputs, ... }:
 
 { system, user }:
 
@@ -13,7 +13,9 @@ let
     config.allowUnfree = true;
   };
 
-  specialArgs = { inherit pkgs pkgs-stable inputs system user; };
+  myLib = import ./default.nix { inherit pkgs inputs; };
+
+  specialArgs = { inherit pkgs pkgs-stable myLib inputs system user; };
 in
   inputs.home-manager.lib.homeManagerConfiguration {
     inherit pkgs;

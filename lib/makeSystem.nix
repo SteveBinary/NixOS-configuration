@@ -1,6 +1,7 @@
-{ inputs }:
+{ inputs, ... }:
 
 { machine, system, user }:
+
 let
   pkgs = import inputs.nixpkgs {
     inherit system;
@@ -12,7 +13,9 @@ let
     config.allowUnfree = true;
   };
 
-  specialArgs = { inherit pkgs pkgs-stable inputs machine system user; };
+  myLib = import ./default.nix { inherit pkgs inputs; };
+
+  specialArgs = { inherit pkgs pkgs-stable myLib inputs machine system user; };
 in
   inputs.nixpkgs.lib.nixosSystem {
     inherit specialArgs;

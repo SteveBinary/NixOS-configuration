@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, config, lib, inputs, machine, user, ... }:
+{ pkgs, pkgs-stable, config, myLib, inputs, machine, user, ... }:
 
 {
   imports = [
@@ -10,8 +10,11 @@
 
   my = {
     common-utilities.enable = true;
+    desktop.plasma.enable = true;
     nix.enable = true;
   };
+
+  hardware.flipperzero.enable = true;
 
   ########## NixOS ################################################################################
 
@@ -99,8 +102,6 @@
       pulse.enable = true;
       jack.enable = true;
     };
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
     xserver = {
       enable = true;
       xkb.layout = "de";
@@ -141,7 +142,7 @@
 
   users.users = {
     "${user.name}" = {
-      description = (import ../../lib/stringUtils.nix lib).upperCaseFirstLetter user.name;
+      description = myLib.stringUtils.upperCaseFirstLetter user.name;
       isNormalUser = true;
       createHome = true;
       extraGroups = [
@@ -160,28 +161,16 @@
     ( nerdfonts.override { fonts = [ "FiraCode" "Meslo" ]; } )
   ];
 
-  ########## environment ##########################################################################
+  ########## environment and programs #############################################################
 
-  environment.shells = [ pkgs.zsh ];
-  environment.pathsToLink = [ "/share/zsh" ];
-  programs.zsh.enable = true;
+  environment = {
+    shells = [ pkgs.zsh ];
+    pathsToLink = [ "/share/zsh" ];
+  };
 
-  # run dynamically linked executables intended for generic Linux environments
-  programs.nix-ld.enable = true;
-
-  programs.steam.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    # mostly for the Info Center app to display all sorts of information
-    aha
-    clinfo
-    glxinfo
-    hdparm
-    lshw
-    lsscsi
-    pciutils
-    usbutils
-    vulkan-tools
-    wayland-utils
-  ];
+  programs = {
+    nix-ld.enable = true; # run dynamically linked executables intended for generic Linux environments
+    steam.enable = true;
+    zsh.enable = true;
+  };
 }

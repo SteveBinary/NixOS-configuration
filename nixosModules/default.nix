@@ -3,6 +3,7 @@
 {
   imports = [
     ./common-utilities
+    ./desktops
     ./nix
   ];
 }

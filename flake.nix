@@ -18,8 +18,7 @@
 
   outputs = inputs@{ self, ... }:
   let
-    makeSystem = import ./lib/makeSystem.nix { inherit inputs; };
-    makeHome = import ./lib/makeHome.nix { inherit inputs; };
+    myLib = import ./lib { inherit (self) pkgs; inherit inputs; };
 
     devShellSupportedSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
     forEachDevShellSupportedSystem = f: inputs.nixpkgs.lib.genAttrs devShellSupportedSystems (system: f {
@@ -27,7 +26,7 @@
     });
   in {
     nixosConfigurations = {
-      tardis = makeSystem {
+      tardis = myLib.makeSystem {
         machine = "tardis";
         system = "x86_64-linux";
         user = {
@@ -37,7 +36,7 @@
       };
     };
     homeConfigurations = {
-      work-sheilen = makeHome {
+      work-sheilen = myLib.makeHome {
         system = "x86_64-linux";
         user = {
           name = "sheilen";
