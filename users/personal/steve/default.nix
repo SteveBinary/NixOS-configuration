@@ -47,7 +47,7 @@
       kdePackages.kdepim-addons
       kdePackages.ksystemlog
       kdePackages.merkuro
-      kdePackages.neochat
+      # kdePackages.neochat # NeoChat uses libolm which is deprecated, investigate later
       kdePackages.yakuake
       libreoffice-qt6-fresh
       localsend
