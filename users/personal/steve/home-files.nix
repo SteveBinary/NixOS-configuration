@@ -17,8 +17,11 @@
           just --version
           just --list --unsorted
 
+      format:
+          nix fmt *
+
       switch:
-          sudo nixos-rebuild switch --flake {{ justfile_directory() }}#${ machine }
+          sudo nixos-rebuild switch --flake {{ justfile_directory() }}#${machine}
 
       update-flake:
           sudo nix flake update --flake {{ justfile_directory() }}

@@ -15,13 +15,22 @@ let
 
   myLib = import ./default.nix { inherit pkgs inputs; };
 
-  specialArgs = { inherit pkgs pkgs-stable myLib inputs system user; };
+  specialArgs = {
+    inherit
+      pkgs
+      pkgs-stable
+      myLib
+      inputs
+      system
+      user
+      ;
+  };
 in
-  inputs.home-manager.lib.homeManagerConfiguration {
-    inherit pkgs;
-    extraSpecialArgs = specialArgs;
-    modules = [
-      inputs.sops-nix.homeManagerModules.sops
-      ../users/${user.profile}/${user.name}
-    ];
-  }
+inputs.home-manager.lib.homeManagerConfiguration {
+  inherit pkgs;
+  extraSpecialArgs = specialArgs;
+  modules = [
+    inputs.sops-nix.homeManagerModules.sops
+    ../users/${user.profile}/${user.name}
+  ];
+}

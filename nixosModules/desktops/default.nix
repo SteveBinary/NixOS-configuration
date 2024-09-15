@@ -1,7 +1,5 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./plasma
-  ];
+  imports = [ ./plasma ];
 }

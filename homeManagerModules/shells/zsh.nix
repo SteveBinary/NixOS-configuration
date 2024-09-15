@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.programs.shells.zsh;
@@ -25,7 +30,10 @@ in
       };
       syntaxHighlighting = {
         enable = true;
-        highlighters = [ "brackets" "pattern" ];
+        highlighters = [
+          "brackets"
+          "pattern"
+        ];
         patterns = {
           "rm -rf" = "fg=white,bold,bg=red";
           "sudo " = "fg=green,bold";

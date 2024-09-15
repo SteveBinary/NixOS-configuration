@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.programs.shells.bash;
@@ -16,7 +21,10 @@ in
     programs.bash = {
       enable = true;
       enableCompletion = true;
-      historyControl = [ "ignoredups" "ignorespace" ];
+      historyControl = [
+        "ignoredups"
+        "ignorespace"
+      ];
       bashrcExtra = lib.strings.concatLines [
         ''
           # if running in Kitty, use the kitten-wrapper for ssh to prevent issues on remote hosts that don't have terminfo for Kitty

@@ -1,6 +1,10 @@
 { inputs, ... }:
 
-{ machine, system, user }:
+{
+  machine,
+  system,
+  user,
+}:
 
 let
   pkgs = import inputs.nixpkgs {
@@ -15,18 +19,29 @@ let
 
   myLib = import ./default.nix { inherit pkgs inputs; };
 
-  specialArgs = { inherit pkgs pkgs-stable myLib inputs machine system user; };
+  specialArgs = {
+    inherit
+      pkgs
+      pkgs-stable
+      myLib
+      inputs
+      machine
+      system
+      user
+      ;
+  };
 in
-  inputs.nixpkgs.lib.nixosSystem {
-    inherit specialArgs;
-    modules = [
-      ../machines/${machine}
-      inputs.sops-nix.nixosModules.sops
-      inputs.home-manager.nixosModules.home-manager {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.${user.name} = ../users/${user.profile}/${user.name};
-        home-manager.extraSpecialArgs = specialArgs;
-      }
-    ];
+inputs.nixpkgs.lib.nixosSystem {
+  inherit specialArgs;
+  modules = [
+    ../machines/${machine}
+    inputs.sops-nix.nixosModules.sops
+    inputs.home-manager.nixosModules.home-manager
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.${user.name} = ../users/${user.profile}/${user.name};
+      home-manager.extraSpecialArgs = specialArgs;
+    }
+  ];
 }

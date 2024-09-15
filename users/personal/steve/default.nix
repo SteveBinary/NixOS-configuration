@@ -25,7 +25,7 @@
     };
     tmux.enable = true;
     virt-manager-extra.enable = true;
-    zellij.enable = true;    
+    zellij.enable = true;
   };
 
   my.services = {

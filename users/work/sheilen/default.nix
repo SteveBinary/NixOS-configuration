@@ -1,4 +1,10 @@
-{ pkgs, pkgs-stable, config, user, ... }:
+{
+  pkgs,
+  pkgs-stable,
+  config,
+  user,
+  ...
+}:
 
 {
   imports = [
@@ -14,9 +20,7 @@
     git = {
       enable = true;
       askpass = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
-      includes = [
-        { path = config.sops.secrets.git_user_information.path; }
-      ];
+      includes = [ { path = config.sops.secrets.git_user_information.path; } ];
     };
     helix.enable = true;
     mqtt-explorer = {
@@ -36,7 +40,6 @@
     };
     zellij.enable = true;
   };
-
 
   home = {
     packages = with pkgs; [
@@ -71,7 +74,7 @@
   };
 
   sops.secrets = {
-    git_user_information = {};
+    git_user_information = { };
   };
 
   sops = {

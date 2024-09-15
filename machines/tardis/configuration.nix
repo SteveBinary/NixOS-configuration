@@ -1,4 +1,13 @@
-{ pkgs, pkgs-stable, config, myLib, inputs, machine, user, ... }:
+{
+  pkgs,
+  pkgs-stable,
+  config,
+  myLib,
+  inputs,
+  machine,
+  user,
+  ...
+}:
 
 {
   imports = [
@@ -57,28 +66,36 @@
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
     };
-  };  
+  };
 
   ########## networking ###########################################################################
 
   networking = {
     hostName = machine;
     networkmanager.enable = true;
-    firewall = { 
+    firewall = {
       enable = true;
       allowedTCPPorts = [
         53317 # LocalSend
       ];
-      allowedTCPPortRanges = [ 
-        { from = 1714; to = 1764; } # KDE Connect
+      allowedTCPPortRanges = [
+        {
+          # KDE Connect
+          from = 1714;
+          to = 1764;
+        }
       ];
       allowedUDPPorts = [
         53317 # LocalSend
       ];
-      allowedUDPPortRanges = [ 
-        { from = 1714; to = 1764; } # KDE Connect
+      allowedUDPPortRanges = [
+        {
+          # KDE Connect
+          from = 1714;
+          to = 1764;
+        }
       ];
-    };  
+    };
   };
 
   ########## services, sound, hardware ############################################################
@@ -90,7 +107,8 @@
       enable = true;
       drivers = [ pkgs.hplip ]; # HP printer
     };
-    avahi = { # for discovery of network devices like printers
+    avahi = {
+      # for discovery of network devices like printers
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
@@ -158,7 +176,12 @@
   ########## fonts ################################################################################
 
   fonts.packages = with pkgs; [
-    ( nerdfonts.override { fonts = [ "FiraCode" "Meslo" ]; } )
+    (nerdfonts.override {
+      fonts = [
+        "FiraCode"
+        "Meslo"
+      ];
+    })
   ];
 
   ########## environment and programs #############################################################

@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.programs.helix;
@@ -52,25 +57,55 @@ in
           mode.insert = "INSERT";
           mode.normal = "NORMAL";
           mode.select = "SELECT";
-          left = [ "mode" "spinner" ];
-          center = [ "version-control" "file-name" ];
-          right = [ "diagnostics" "selections" "position" "file-encoding" "file-line-ending" "file-type" ];
+          left = [
+            "mode"
+            "spinner"
+          ];
+          center = [
+            "version-control"
+            "file-name"
+          ];
+          right = [
+            "diagnostics"
+            "selections"
+            "position"
+            "file-encoding"
+            "file-line-ending"
+            "file-type"
+          ];
         };
 
         keys.insert = {
           C-s = [ ":write" ]; # save the buffer
-          C-q = [ "normal_mode" ":quit" ]; # close the buffer
+          C-q = [
+            "normal_mode"
+            ":quit"
+          ]; # close the buffer
           C-left = [ "move_prev_word_start" ]; # faster movement with the arrow keys
           C-right = [ "move_next_word_start" ]; # faster movement with the arrow keys
         };
 
         keys.normal = {
-          esc = [ "collapse_selection" "keep_primary_selection" ]; # unify what the escape key is doing
-          ret = [ "move_line_down" "goto_first_nonwhitespace" ]; # move to the start of the next line when pressing enter
+          esc = [
+            "collapse_selection"
+            "keep_primary_selection"
+          ]; # unify what the escape key is doing
+          ret = [
+            "move_line_down"
+            "goto_first_nonwhitespace"
+          ]; # move to the start of the next line when pressing enter
           C-s = [ ":write" ]; # save the buffer
           C-q = [ ":quit" ]; # close the buffer
-          C-left = [ "move_prev_word_start" "move_char_left" "move_char_right" ]; # faster movement with the arrow keys
-          C-right = [ "move_next_word_start" "move_char_left" "move_char_right" ]; # faster movement with the arrow keys
+          C-left = [
+            "move_prev_word_start"
+            "move_char_left"
+            "move_char_right"
+          ]; # faster movement with the arrow keys
+          C-right = [
+            "move_next_word_start"
+            "move_char_left"
+            "move_char_right"
+          ]; # faster movement with the arrow keys
         };
       };
     };

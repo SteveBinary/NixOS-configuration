@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.programs.tmux;
@@ -28,9 +33,7 @@ in
       # enable colored prompt
       terminal = "xterm-256color";
 
-      plugins = with pkgs; [
-        tmuxPlugins.catppuccin
-      ];
+      plugins = with pkgs; [ tmuxPlugins.catppuccin ];
 
       extraConfig = ''
         # enable 24-Bit color support

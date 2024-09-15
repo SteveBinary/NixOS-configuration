@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.programs.git;
@@ -19,7 +24,7 @@ in
       type = lib.types.nullOr lib.types.str;
     };
     includes = lib.mkOption {
-      default = [];
+      default = [ ];
       type = lib.types.listOf lib.types.anything;
     };
   };

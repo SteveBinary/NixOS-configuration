@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.nix;
@@ -12,7 +17,10 @@ in
     nix = {
       package = pkgs.nixVersions.latest;
       settings = {
-        experimental-features = [ "flakes" "nix-command" ];
+        experimental-features = [
+          "flakes"
+          "nix-command"
+        ];
         auto-optimise-store = true;
         warn-dirty = false;
       };

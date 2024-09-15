@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.programs.virt-manager-extra;
@@ -12,8 +17,8 @@ in
     # actually enabling virt-manager and virtualisation.libvirtd is done in the machine's configuration
     dconf.settings = {
       "org/virt-manager/virt-manager/connections" = {
-        autoconnect = ["qemu:///system"];
-        uris = ["qemu:///system"];
+        autoconnect = [ "qemu:///system" ];
+        uris = [ "qemu:///system" ];
       };
     };
   };

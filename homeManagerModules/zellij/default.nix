@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   cfg = config.my.programs.zellij;
@@ -11,7 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.zellij = {
       enable = true;
-      settings = {};
+      settings = { };
     };
   };
 }
