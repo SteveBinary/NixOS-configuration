@@ -35,8 +35,9 @@ in
       userName = cfg.userName;
       userEmail = cfg.userEmail;
       extraConfig = {
-        init.defaultbranch = "main";
         core.askpass = lib.mkIf (cfg.askpass != null) cfg.askpass;
+        init.defaultbranch = "main";
+        push.autoSetupRemote = true;
       };
       includes = cfg.includes;
     };
