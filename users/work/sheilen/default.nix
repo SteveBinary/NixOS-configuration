@@ -44,7 +44,6 @@
   home = {
     packages = with pkgs; [
       # desktop applications
-      floorp
       jetbrains.idea-ultimate
       jetbrains.rust-rover
       keepass
@@ -58,9 +57,12 @@
       kubectx
       kubernetes-helm
       lsd
+      parallel
+      ripgrep
       tldr
       tree
       yazi
+      yq
     ];
 
     sessionVariables = {
