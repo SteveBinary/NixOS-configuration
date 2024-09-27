@@ -30,6 +30,7 @@
 
   my.services = {
     kde-connect.enable = true;
+    nextcloud-client.enable = true;
   };
 
   home = {
@@ -41,6 +42,7 @@
       firefox
       handbrake
       haruna
+      inkscape
       jetbrains.idea-ultimate
       kdePackages.isoimagewriter
       kdePackages.kate

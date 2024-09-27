@@ -1,4 +1,4 @@
-{ pkgs, machine, ... }:
+{ pkgs, machine, user, ... }:
 
 {
   home.file = {
@@ -10,6 +10,11 @@
     "NixOS-configuration/.directory".text = ''
       [Desktop Entry]
       Icon=./assets/images/folder-nix-snowflake-light.svg
+    '';
+
+    "Nextcloud/.directory".text = ''
+      [Desktop Entry]
+      Icon=/home/${user.name}/NixOS-configuration/assets/images/folder-nextcloud-light.svg
     '';
 
     "NixOS-configuration/justfile".text = ''

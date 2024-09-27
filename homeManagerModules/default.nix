@@ -10,6 +10,7 @@
     ./kde-connect
     ./kitty
     ./mqtt-explorer
+    ./nextcloud-client
     ./shells
     ./tmux
     ./virt-manager-extra
