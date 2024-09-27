@@ -24,6 +24,7 @@
   };
 
   hardware.flipperzero.enable = true;
+  services.hardware.openrgb.enable = true;
 
   ########## NixOS ################################################################################
 
