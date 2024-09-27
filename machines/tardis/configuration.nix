@@ -49,7 +49,7 @@
       };
     };
     kernel.sysctl."vm.swappines" = 10;
-    kernelPackages = pkgs.linuxPackages_6_10;
+    kernelPackages = pkgs.linuxPackages_6_11;
     extraModulePackages = with config.boot.kernelPackages; [
       rtl88xxau-aircrack # for USB WiFi adapter
     ];
