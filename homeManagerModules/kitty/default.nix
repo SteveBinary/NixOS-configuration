@@ -20,7 +20,7 @@ in
         name = "MesloLGM Nerd Font";
         size = 13;
       };
-      theme = "Catppuccin-Mocha";
+      themeFile = "Catppuccin-Mocha";
       shellIntegration = {
         enableBashIntegration = true;
         enableZshIntegration = true;
