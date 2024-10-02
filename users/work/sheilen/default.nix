@@ -53,6 +53,7 @@
       fastfetch
       file
       jq
+      kubecolor
       kubectl
       kubectx
       kubernetes-helm

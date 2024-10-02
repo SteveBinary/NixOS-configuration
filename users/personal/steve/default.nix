@@ -60,14 +60,20 @@
       thunderbird
 
       # terminal applications
+      dnsutils
       dos2unix
       file
       jq
       lsd
       fastfetch
+      kubecolor
+      kubectl
+      kubectx
+      kubernetes-helm
       tldr
       tree
       yazi
+      yq
     ];
 
     preferXdgDirectories = true;

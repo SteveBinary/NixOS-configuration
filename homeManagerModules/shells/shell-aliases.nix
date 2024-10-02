@@ -13,7 +13,7 @@
   gpush = "git push";
   gs = "git status";
 
-  k = "kubectl";
+  k = "kubecolor";
   kx = "kubectx";
   kn = "kubens";
 
@@ -27,7 +27,6 @@
   p = "cd ~/Projects";
 
   reboot-now = "sudo reboot now";
-  rm = "echo 'Use trash-put <file/directory> for using the trash. Use \\\\rm <file/directory> if you are sure.'; false";
 
   sudo = "sudo "; # for shell aliases to be usable with sudo
 }
