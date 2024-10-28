@@ -1,4 +1,9 @@
-{ pkgs, machine, user, ... }:
+{
+  pkgs,
+  machine,
+  user,
+  ...
+}:
 
 {
   home.file = {
