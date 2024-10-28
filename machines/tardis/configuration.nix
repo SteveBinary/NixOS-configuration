@@ -23,6 +23,8 @@
     nix.enable = true;
   };
 
+  programs.adb.enable = true;
+
   hardware.flipperzero.enable = true;
   services.hardware.openrgb.enable = true;
 
@@ -165,6 +167,7 @@
       isNormalUser = true;
       createHome = true;
       extraGroups = [
+        "adbusers" # android debug bridge
         "wheel"
         "networkmanager"
         "libvirtd" # for virt-manager

@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, pkgs-stable, lib, ... }:
 
 {
   imports = [
@@ -36,9 +36,11 @@
   home = {
     packages = with pkgs; [
       # desktop applications
+      android-studio
       bitwarden-desktop
       bottles
       brave
+      element-desktop
       firefox
       handbrake
       haruna
@@ -49,15 +51,23 @@
       kdePackages.kdepim-addons
       kdePackages.ksystemlog
       kdePackages.merkuro
-      # kdePackages.neochat # NeoChat uses libolm which is deprecated, investigate later
       kdePackages.yakuake
       libreoffice-qt6-fresh
       localsend
       obsidian
       protonmail-bridge-gui
-      rustdesk # change to rustdesk-flutter when the collisions with LocalSend related to Flutter are resolved, see https://github.com/NixOS/nixpkgs/issues/254265
       signal-desktop
       thunderbird
+
+      # issue: https://github.com/nix-community/home-manager/issues/5173
+      # original: https://github.com/NixOS/nixpkgs/issues/254265
+      # using this workaround: https://discourse.nixos.org/t/home-manager-collision-with-app-lib/51969/2
+      (lib.hiPrio rustdesk-flutter)
+
+      # games
+      oh-my-git
+      superTux
+      superTuxKart
 
       # terminal applications
       dnsutils
