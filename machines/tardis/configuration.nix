@@ -180,12 +180,8 @@
   ########## fonts ################################################################################
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "FiraCode"
-        "Meslo"
-      ];
-    })
+    nerd-fonts.fira-code
+    nerd-fonts.meslo-lg
   ];
 
   ########## environment and programs #############################################################
