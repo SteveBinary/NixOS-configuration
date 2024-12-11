@@ -63,6 +63,7 @@
       protonmail-bridge-gui
       signal-desktop
       thunderbird
+      ytdownloader
 
       # issue: https://github.com/nix-community/home-manager/issues/5173
       # original: https://github.com/NixOS/nixpkgs/issues/254265
@@ -77,7 +78,9 @@
       # terminal applications
       dnsutils
       dos2unix
+      exiftool
       file
+      imagemagick
       jq
       lsd
       fastfetch
