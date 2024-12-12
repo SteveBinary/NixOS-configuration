@@ -73,7 +73,7 @@
     username = user.name;
     homeDirectory = "/home/${user.name}";
     preferXdgDirectories = true;
-    stateVersion = "24.11";
+    stateVersion = "25.05";
   };
 
   sops.secrets = {
