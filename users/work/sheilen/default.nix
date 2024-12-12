@@ -47,17 +47,20 @@
       jetbrains.idea-ultimate
       jetbrains.rust-rover
       keepass
+      vlc
 
       # terminal applications
       dnsutils
       fastfetch
       file
       jq
+      k9s
       kubecolor
       kubectl
       kubectx
       kubernetes-helm
       lsd
+      minikube
       parallel
       ripgrep
       tldr
