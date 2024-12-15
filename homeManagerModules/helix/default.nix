@@ -11,6 +11,15 @@ in
 {
   options.my.programs.helix = {
     enable = lib.mkEnableOption "Enable my Home Manager module for helix";
+    language-servers = lib.mkOption {
+      default = with pkgs; [
+        marksman # markdown
+        nil # nix
+        taplo # toml
+        yaml-language-server # yaml and docker-compose
+      ];
+      type = lib.types.listOf lib.types.package;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -18,6 +27,8 @@ in
       # this allows 'sudo hx' to use this helix config; the alias sudo="sudo " must also be set
       hx = "hx --config ${config.xdg.configHome}/helix/config.toml";
     };
+
+    home.packages = cfg.language-servers;
 
     programs.helix = {
       enable = true;
