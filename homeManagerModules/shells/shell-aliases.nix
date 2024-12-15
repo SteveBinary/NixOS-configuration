@@ -26,7 +26,7 @@
 
   p = "cd ~/Projects";
 
-  reboot-now = "sudo reboot now";
+  reboot-now = "sudo shutdown -r now";
 
   sudo = "sudo "; # for shell aliases to be usable with sudo
 }
