@@ -37,7 +37,8 @@
   ########## boot #################################################################################
 
   boot = {
-    initrd.luks.devices."luks-2634ae65-a0f5-4938-aabe-52d2fc9f40aa".device = "/dev/disk/by-uuid/2634ae65-a0f5-4938-aabe-52d2fc9f40aa"; # Swap
+    initrd.luks.devices."luks-2634ae65-a0f5-4938-aabe-52d2fc9f40aa".device =
+      "/dev/disk/by-uuid/2634ae65-a0f5-4938-aabe-52d2fc9f40aa"; # Swap
     loader = {
       grub = {
         enable = true;
@@ -59,14 +60,16 @@
 
   ########## virtualisation #######################################################################
 
-  virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
-
-  virtualisation.containers.enable = true;
   virtualisation = {
+    libvirtd.enable = true;
+    containers.enable = true;
+    docker = {
+      enable = true;
+      storageDriver = "overlay2";
+    };
     podman = {
       enable = true;
-      dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
     };
   };
@@ -168,6 +171,7 @@
       createHome = true;
       extraGroups = [
         "adbusers" # android debug bridge
+        "docker"
         "wheel"
         "networkmanager"
         "libvirtd" # for virt-manager
