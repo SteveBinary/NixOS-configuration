@@ -70,6 +70,11 @@
       # using this workaround: https://discourse.nixos.org/t/home-manager-collision-with-app-lib/51969/2
       (lib.hiPrio rustdesk-flutter)
 
+      # spellchecking and hyphenation
+      hunspell
+      hunspellDicts.de_DE
+      hyphenDicts.de_DE
+
       # games
       oh-my-git
       superTux
