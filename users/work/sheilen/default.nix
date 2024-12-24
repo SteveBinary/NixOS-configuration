@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-stable,
+  inputs,
   config,
   user,
   ...
@@ -87,6 +88,11 @@
     age.keyFile = "/home/${user.name}/.config/sops/age/keys.txt";
     defaultSopsFile = ./secrets.yaml;
     defaultSopsFormat = "yaml";
+  };
+
+  nix.registry = {
+    nixpkgs.flake = inputs.nixpkgs;
+    nixpkgs-stable.flake = inputs.nixpkgs-stable;
   };
 
   news.display = "silent";
