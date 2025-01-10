@@ -51,6 +51,7 @@
       haruna
       inkscape
       jetbrains.idea-ultimate
+      jetbrains.rust-rover
       kdePackages.isoimagewriter
       kdePackages.kate
       kdePackages.kdepim-addons
