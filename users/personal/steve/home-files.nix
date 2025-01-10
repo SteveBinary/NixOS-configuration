@@ -28,7 +28,7 @@
           just --list --unsorted
 
       format:
-          nix fmt *
+          nix fmt *.nix --no-update-lock-file
 
       switch:
           sudo nixos-rebuild switch --flake {{ justfile_directory() }}#${machine}
