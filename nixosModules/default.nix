@@ -5,5 +5,6 @@
     ./common-utilities
     ./desktops
     ./nix
+    ./virtualisation
   ];
 }

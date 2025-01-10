@@ -30,7 +30,8 @@
     options = [ "subvol=@" ];
   };
 
-  boot.initrd.luks.devices."luks-2baa8e5c-e341-4895-9f96-323c3a1d9e15".device = "/dev/disk/by-uuid/2baa8e5c-e341-4895-9f96-323c3a1d9e15";
+  boot.initrd.luks.devices."luks-2baa8e5c-e341-4895-9f96-323c3a1d9e15".device =
+    "/dev/disk/by-uuid/2baa8e5c-e341-4895-9f96-323c3a1d9e15";
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/3F06-C6DA";

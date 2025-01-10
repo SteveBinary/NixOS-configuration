@@ -21,6 +21,11 @@
     common-utilities.enable = true;
     desktop.plasma.enable = true;
     nix.enable = true;
+    virtualisation = {
+      enableDocker = true;
+      enablePodman = true;
+      enableLibvirtd = true;
+    };
   };
 
   programs.adb.enable = true;
@@ -56,22 +61,6 @@
     extraModulePackages = with config.boot.kernelPackages; [
       rtl88xxau-aircrack # for USB WiFi adapter
     ];
-  };
-
-  ########## virtualisation #######################################################################
-
-  programs.virt-manager.enable = true;
-  virtualisation = {
-    libvirtd.enable = true;
-    containers.enable = true;
-    docker = {
-      enable = true;
-      storageDriver = "overlay2";
-    };
-    podman = {
-      enable = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
   };
 
   ########## networking ###########################################################################
@@ -171,10 +160,8 @@
       createHome = true;
       extraGroups = [
         "adbusers" # android debug bridge
-        "docker"
         "wheel"
         "networkmanager"
-        "libvirtd" # for virt-manager
       ];
     };
   };
