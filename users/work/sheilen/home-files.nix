@@ -24,6 +24,9 @@
           just --version
           just --list --unsorted
 
+      format:
+          nix fmt *.nix --no-update-lock-file
+
       switch:
           home-manager switch --flake {{ justfile_directory() }}#${user.profile}-${user.name}
 

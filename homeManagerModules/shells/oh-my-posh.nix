@@ -30,17 +30,23 @@ in
       enableZshIntegration = config.my.programs.shells.zsh.enable;
       settings = {
         version = 2;
-        auto_upgrade = false;
-        disable_notice = true;
+        upgrade = {
+          notice = false;
+          auto = false;
+        };
         final_space = true;
         terminal_background = "#1E1E2E";
         palette = {
-          os = "#ACB0BE";
-          closer = "p:os";
+          red = "#D0164A";
+          orange = "#E88243";
+          yellow = "#F5DA42";
+          green = "#3AD12C";
+          blue = "#89B4FA";
           pink = "#F5C2E7";
           lavender = "#B4BEFE";
-          blue = "#89B4FA";
-          error = "#D0164A";
+          error = "p:red";
+          os = "#ACB0BE";
+          closer = "p:os";
         };
         secondary_prompt = {
           template = " ";
@@ -104,7 +110,13 @@ in
             segments = [
               {
                 type = "kubectl";
-                template = "{{ if eq \"true\" .Env.SHOW_KUBERNETES_INFO_IN_PROMPT }}󱃾 {{ .Context }}::{{ if .Namespace }}{{ .Namespace }}{{ else }}default{{ end }}{{ end }}";
+                template =
+                  ''{{ if eq "true" .Env.SHOW_KUBERNETES_INFO_IN_PROMPT }}󱃾 {{ .Context }} @ ''
+                  + ''<b>{{ if .Namespace }}{{ .Namespace }}{{ else }}default{{ end }}</b>''
+                  + ''{{ if regexMatch ".*-prod-?\\d*$" .Namespace }} <p:red>⬤</> ''
+                  + ''{{ else if hasSuffix "-qa" .Namespace }} <p:orange>⬤</> ''
+                  + ''{{ else if hasSuffix "-int" .Namespace }} <p:yellow>⬤</> ''
+                  + ''{{ else if hasSuffix "-dev" .Namespace }} <p:green>⬤</> {{ end }}{{ end }}'';
                 style = "plain";
                 foreground = "p:blue";
                 propterties = {
