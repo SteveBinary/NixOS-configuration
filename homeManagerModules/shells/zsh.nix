@@ -11,6 +11,10 @@ in
 {
   options.my.programs.shells.zsh = {
     enable = lib.mkEnableOption "Enable my Home Manager module for zsh";
+    zshrcExtra = lib.mkOption {
+      default = "";
+      type = lib.types.lines;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -50,22 +54,28 @@ in
         # colors for the default completion menu
         zstyle ':completion:*' list-colors "$${(s.:.)LS_COLORS}"
       '';
-      initExtra = ''
-        # extras for history
-        HISTDUP=erase
-        setopt APPEND_HISTORY
-        setopt SHARE_HISTORY
-        setopt HIST_SAVE_NO_DUPS
-        setopt HIST_FIND_NO_DUPS
+      initExtra = lib.strings.concatLines [
+        ''
+          # extras for history
+          HISTDUP=erase
+          setopt APPEND_HISTORY
+          setopt SHARE_HISTORY
+          setopt HIST_SAVE_NO_DUPS
+          setopt HIST_FIND_NO_DUPS
 
-        # replace the default completion menu by fzf
-        zstyle ':completion:*' menu no
-        zstyle ':fzf-tab:complete:*' fzf-preview 'ls --color $realpath'
+          # replace the default completion menu by fzf
+          zstyle ':completion:*' menu no
+          zstyle ':fzf-tab:complete:*' fzf-preview 'ls --color $realpath'
 
-        # if running in Kitty, use the kitten-wrapper for ssh to prevent issues on remote hosts that don't have terminfo for Kitty
-        # see: https://wiki.archlinux.org/title/Kitty#Terminal_issues_with_SSH
-        [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
-      '';
+          # if running in Kitty, use the kitten-wrapper for ssh to prevent issues on remote hosts that don't have terminfo for Kitty
+          # see: https://wiki.archlinux.org/title/Kitty#Terminal_issues_with_SSH
+          [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+
+          # fix that the kubecolor tab-completions are not working when the kubectl completions are not triggered at least once before
+          compdef kubecolor=kubectl
+        ''
+        cfg.zshrcExtra
+      ];
     };
   };
 }
