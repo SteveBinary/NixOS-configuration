@@ -3,15 +3,6 @@
   cat = "bat";
 
   g = "git";
-  ga = "git add";
-  gaa = "git add --all";
-  gc = "git commit";
-  gcm = "git commit -m";
-  gd = "git diff";
-  gf = "git fetch";
-  gl = "git log";
-  gp = "git pull";
-  gpush = "git push";
   gs = "git status";
 
   k = "kubecolor";
