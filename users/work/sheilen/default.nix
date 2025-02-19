@@ -46,6 +46,7 @@
     packages = with pkgs; [
       # desktop applications
       jetbrains.idea-ultimate
+      jetbrains.rider
       jetbrains.rust-rover
       keepass
       vlc
@@ -54,8 +55,8 @@
       dnsutils
       fastfetch
       file
+      hexyl
       jq
-      k9s
       kubecolor
       kubectl
       kubectx
