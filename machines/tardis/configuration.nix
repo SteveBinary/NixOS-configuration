@@ -162,8 +162,9 @@
       createHome = true;
       extraGroups = [
         "adbusers" # android debug bridge
-        "wheel"
+        "dialout" # e.g. for espflash
         "networkmanager"
+        "wheel"
       ];
     };
   };
