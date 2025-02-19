@@ -38,6 +38,23 @@ in
         core.askpass = lib.mkIf (cfg.askpass != null) cfg.askpass;
         init.defaultbranch = "main";
         push.autoSetupRemote = true;
+
+        # diff syntax highlighting with delta
+        core.pager = "${pkgs.delta}/bin/delta";
+        interactive.diffFilter = "${pkgs.delta}/bin/delta --color-only";
+        merge.conflictstyle = "zdiff3";
+        delta = {
+          syntax-theme = "catppuccin-mocha"; # Delta themes come from bat. And the "catppuccin-mocha" theme is a custom bat theme, defined in my nix config.
+          hyperlinks = true;
+          line-numbers = true;
+          navigate = true;
+          side-by-side = true;
+          features = "decorations";
+          decorations = {
+            file-decoration-style = "blue ol";
+            hunk-header-style = "omit";
+          };
+        };
       };
       includes = cfg.includes;
     };
