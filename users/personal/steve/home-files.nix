@@ -22,31 +22,34 @@
       Icon=/home/${user.name}/NixOS-configuration/assets/images/folder-nextcloud-light.svg
     '';
 
-    "NixOS-configuration/justfile".text = ''
-      @default:
-          just --version
-          just --list --unsorted
+    "NixOS-configuration/justfile".text = # just
+      ''
+        set shell := ["zsh", "-cu"]
 
-      format:
-          nix fmt *.nix --no-update-lock-file
+        @default:
+            just --version
+            just --list --unsorted
 
-      switch:
-          sudo nixos-rebuild switch --flake {{ justfile_directory() }}#${machine}
+        format:
+            nix fmt --no-update-lock-file *.nix **/*.nix
 
-      update-flake:
-          sudo nix flake update --flake {{ justfile_directory() }}
+        switch:
+            sudo nixos-rebuild switch --flake {{ justfile_directory() }}#${machine}
 
-      update: update-flake switch
+        update-flake:
+            sudo nix flake update --flake {{ justfile_directory() }}
 
-      collect-garbage:
-          sudo nix-collect-garbage
+        update: update-flake switch
 
-      collect-garbage-all:
-          sudo nix-collect-garbage -d
-          nix store optimise
+        collect-garbage:
+            sudo nix-collect-garbage
 
-      list-generations:
-          sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
-    '';
+        collect-garbage-all:
+            sudo nix-collect-garbage -d
+            nix store optimise
+
+        list-generations:
+            sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+      '';
   };
 }
