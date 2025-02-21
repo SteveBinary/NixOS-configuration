@@ -60,7 +60,8 @@ in
             segments = [
               {
                 type = "os";
-                template = "{{ if .WSL }}WSL at {{ end }}{{ .Icon }}";
+                template = # gotmpl
+                  ''{{ if .WSL }}WSL at {{ end }}{{ .Icon }}'';
                 style = "plain";
                 foreground = "p:os";
               }
@@ -71,7 +72,8 @@ in
               }
               {
                 type = "path";
-                template = "{{ if not .Writable }}<p:error> </>{{ end }}{{ .Path }} ";
+                template = # gotmpl
+                  ''{{ if not .Writable }}<p:error> </>{{ end }}{{ .Path }} '';
                 style = "plain";
                 foreground = "p:pink";
                 properties = {
@@ -82,9 +84,12 @@ in
               {
                 type = "git";
                 template =
-                  "{{ .UpstreamIcon }}{{ .HEAD }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}"
-                  + "{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}"
-                  + "{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}";
+                  builtins.replaceStrings [ "\n" ] [ "" ] # gotmpl
+                    ''
+                      {{ .UpstreamIcon }}{{ .HEAD }}{{ if .BranchStatus }} {{ .BranchStatus }}{{ end }}
+                      {{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}
+                      {{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}
+                    '';
                 style = "plain";
                 foreground = "p:lavender";
                 properties = {
@@ -111,12 +116,17 @@ in
               {
                 type = "kubectl";
                 template =
-                  ''{{ if eq "true" .Env.SHOW_KUBERNETES_INFO_IN_PROMPT }}󱃾 {{ .Context }} @ ''
-                  + ''<b>{{ if .Namespace }}{{ .Namespace }}{{ else }}default{{ end }}</b>''
-                  + ''{{ if regexMatch ".*-prod-?\\d*$" .Namespace }} <p:red>⬤</> ''
-                  + ''{{ else if hasSuffix "-qa" .Namespace }} <p:orange>⬤</> ''
-                  + ''{{ else if hasSuffix "-int" .Namespace }} <p:yellow>⬤</> ''
-                  + ''{{ else if hasSuffix "-dev" .Namespace }} <p:green>⬤</> {{ end }}{{ end }}'';
+                  builtins.replaceStrings [ "\n" ] [ "" ] # gotmpl
+                    ''
+                      {{ if eq "true" .Env.SHOW_KUBERNETES_INFO_IN_PROMPT }}󱃾 {{ .Context }} @
+                      <b>{{ if .Namespace }} {{ .Namespace }}{{ else }} default{{ end }}</b>
+                      {{ if      or (regexMatch ".*-prod-?\\d*$" .Namespace) (regexMatch ".*-prod-?\\d*$" .Context) }} <p:red>⬤</>
+                      {{ else if or (hasSuffix  "-qa"            .Namespace) (hasSuffix  "-qa"            .Context) }} <p:orange>⬤</>
+                      {{ else if or (hasSuffix  "-int"           .Namespace) (hasSuffix  "-int"           .Context) }} <p:yellow>⬤</>
+                      {{ else if or (hasSuffix  "-dev"           .Namespace) (hasSuffix  "-dev"           .Context) }} <p:green>⬤</>
+                      {{ end }}
+                      {{ end }}
+                    '';
                 style = "plain";
                 foreground = "p:blue";
                 propterties = {
