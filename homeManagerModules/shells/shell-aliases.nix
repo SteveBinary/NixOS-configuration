@@ -2,7 +2,6 @@
   c = "clear";
   cat = "bat";
 
-  g = "git";
   gs = "git status";
 
   k = "kubecolor";
