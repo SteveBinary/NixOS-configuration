@@ -42,23 +42,15 @@
   home = {
     packages = with pkgs; [
       # desktop applications
-      android-studio
       bitwarden-desktop
       bottles
-      brave
       element-desktop
       firefox
       handbrake
       haruna
       inkscape
-      jetbrains.idea-ultimate
-      jetbrains.rust-rover
-      kdePackages.isoimagewriter
-      kdePackages.kate
       kdePackages.kdepim-addons
       kdePackages.ksystemlog
-      kdePackages.merkuro
-      kdePackages.yakuake
       libreoffice-qt6-fresh
       localsend
       obsidian
@@ -72,7 +64,7 @@
       # using this workaround: https://discourse.nixos.org/t/home-manager-collision-with-app-lib/51969/2
       (lib.hiPrio rustdesk-flutter)
 
-      # spellchecking and hyphenation
+      # spellchecking and hyphenation, mostly for LibreOffice
       hunspell
       hunspellDicts.de_DE
       hyphenDicts.de_DE
