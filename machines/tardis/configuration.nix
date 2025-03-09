@@ -100,6 +100,7 @@
   services = {
     flatpak.enable = true;
     fwupd.enable = true;
+    ollama.enable = true; # hardware acceleration doesn't work properly with the AMD Radeon 780M
     printing = {
       enable = true;
       drivers = [ pkgs.hplip ]; # HP printer
