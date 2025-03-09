@@ -30,6 +30,7 @@
     };
     tmux.enable = true;
     virt-manager-extra.enable = true;
+    zed-editor.enable = true;
     zellij.enable = true;
   };
 

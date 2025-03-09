@@ -39,6 +39,7 @@
       };
       zsh.enable = true;
     };
+    zed-editor.enable = true;
     zellij.enable = true;
   };
 

@@ -14,6 +14,7 @@
     ./shells
     ./tmux
     ./virt-manager-extra
+    ./zed
     ./zellij
   ];
 }
