@@ -7,6 +7,10 @@
 
 let
   cfg = config.my.programs.shells.zsh;
+  autostart_zellij_when_running_in = [
+    "kitty"
+    "konsole"
+  ];
 in
 {
   options.my.programs.shells.zsh = {
@@ -54,7 +58,7 @@ in
         # colors for the default completion menu
         zstyle ':completion:*' list-colors "$${(s.:.)LS_COLORS}"
       '';
-      initExtra = lib.strings.concatLines [
+      initExtra = lib.concatLines [
         ''
           # extras for history
           HISTDUP=erase
@@ -74,6 +78,25 @@ in
           # fix that the kubecolor tab-completions are not working when the kubectl completions are not triggered at least once before
           compdef kubecolor=kubectl
         ''
+        (
+          if (config.programs.zellij.enable && !config.programs.zellij.enableZshIntegration) then
+            let
+              concat_process_names =
+                separator: builtins.concatStringsSep separator (map (e: "'${e}'") autostart_zellij_when_running_in);
+            in
+            ''
+              # autostart zellij when running via ${concat_process_names ", "}
+              parent_process_names_that_trigger_zellij_autostart=(${concat_process_names " "})
+              current_parent_process_name="$(basename "/"$(ps -o cmd -f -p $(cat /proc/$(echo $$)/stat | cut -d ' ' -f 4) | tail -1 | sed 's/ .*$//'))"
+              if (($parent_process_names_that_trigger_zellij_autostart[(Ie)$current_parent_process_name])); then
+                eval "$(zellij setup --generate-auto-start zsh)"
+              fi
+              unset current_parent_process_name
+              unset parent_process_names_that_trigger_zellij_autostart
+            ''
+          else
+            ""
+        )
         cfg.zshrcExtra
       ];
     };
