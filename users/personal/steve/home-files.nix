@@ -42,11 +42,25 @@
         update: update-flake switch
 
         collect-garbage:
+            #!/usr/bin/env zsh
+            before=$(df --human-readable --output=used / | sed 1d | sed "s/[[:space:]]*//")
             sudo nix-collect-garbage
+            after=$(df --human-readable --output=used / | sed 1d | sed "s/[[:space:]]*//")
+            echo "=================================================="
+            echo "Effect of garbage collection on disk usage"
+            echo "  Before: $before"
+            echo "  After:  $after"
 
         collect-garbage-all:
+            #!/usr/bin/env zsh
+            before=$(df --human-readable --output=used / | sed 1d | sed "s/[[:space:]]*//")
             sudo nix-collect-garbage -d
             nix store optimise
+            after=$(df --human-readable --output=used / | sed 1d | sed "s/[[:space:]]*//")
+            echo "=================================================="
+            echo "Effect of garbage collection on disk usage"
+            echo "  Before: $before"
+            echo "  After:  $after"
 
         list-generations:
             sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
