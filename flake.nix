@@ -18,31 +18,55 @@
 
   outputs =
     inputs@{ self, ... }:
-    let
-      myLib = import ./lib {
-        inherit (self) pkgs;
-        inherit inputs;
-      };
-    in
     {
       nixosConfigurations = {
-        tardis = myLib.makeSystem {
-          machine = "tardis";
-          system = "x86_64-linux";
-          user = {
-            name = "steve";
-            profile = "personal";
-          };
-        };
+        tardis = inputs.nixpkgs.lib.nixosSystem (
+          let
+            vars = {
+              machine = "tardis";
+              system = "x86_64-linux";
+              user.name = "steve";
+              user.home = "/home/${vars.user.name}";
+              myLib = pkgs: import ./lib { inherit pkgs; };
+            };
+          in
+          rec {
+            specialArgs = { inherit inputs vars; };
+            modules = [
+              ./machines/${vars.machine}
+              inputs.sops-nix.nixosModules.sops
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.${vars.user.name} = ./home/${vars.user.name};
+                home-manager.extraSpecialArgs = specialArgs;
+              }
+            ];
+          }
+        );
       };
       homeConfigurations = {
-        work-sheilen = myLib.makeHome {
-          system = "x86_64-linux";
-          user = {
-            name = "sheilen";
-            profile = "work";
-          };
-        };
+        sheilen = inputs.home-manager.lib.homeManagerConfiguration (
+          let
+            vars = {
+              system = "x86_64-linux";
+              user.name = "sheilen";
+              user.home = "/home/${vars.user.name}";
+            };
+            pkgs = inputs.nixpkgs.legacyPackages.${vars.system};
+            myLib = import ./lib { inherit pkgs; };
+          in
+          {
+            inherit pkgs;
+            extraSpecialArgs = { inherit inputs myLib vars; };
+            modules = [
+              ./modules/home-manager
+              ./home/${vars.user.name}
+              inputs.sops-nix.homeManagerModules.sops
+            ];
+          }
+        );
       };
     }
     // inputs.flake-utils.lib.eachDefaultSystem (

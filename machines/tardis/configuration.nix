@@ -1,17 +1,17 @@
 {
   pkgs,
-  pkgs-stable,
   config,
-  myLib,
   inputs,
-  machine,
-  user,
+  vars,
   ...
 }:
 
+let
+  myLib = vars.myLib pkgs;
+in
 {
   imports = [
-    ../../nixosModules
+    ../../modules/nixos
     inputs.nixos-hardware.nixosModules.framework-16-7040-amd
   ];
 
@@ -68,7 +68,7 @@
   ########## networking ###########################################################################
 
   networking = {
-    hostName = machine;
+    hostName = vars.machine;
     networkmanager.enable = true;
     firewall = {
       enable = true;
@@ -157,8 +157,8 @@
   ########## users ################################################################################
 
   users.users = {
-    "${user.name}" = {
-      description = myLib.stringUtils.upperCaseFirstLetter user.name;
+    "${vars.user.name}" = {
+      description = myLib.stringUtils.upperCaseFirstLetter vars.user.name;
       isNormalUser = true;
       createHome = true;
       extraGroups = [

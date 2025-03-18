@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs }:
 
 # this function patches a desktop file of a given package without the need to rebuild the package itself
 # based on https://www.reddit.com/r/NixOS/comments/scf0ui/comment/jpmhb6s
