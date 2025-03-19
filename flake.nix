@@ -24,7 +24,6 @@
           let
             vars = {
               machine = "tardis";
-              system = "x86_64-linux";
               user.name = "steve";
               user.home = "/home/${vars.user.name}";
               myLib = pkgs: import ./lib { inherit pkgs; };
@@ -34,6 +33,7 @@
             specialArgs = { inherit inputs vars; };
             modules = [
               ./machines/${vars.machine}
+              ./modules/nixos
               inputs.sops-nix.nixosModules.sops
               inputs.home-manager.nixosModules.home-manager
               {
@@ -41,6 +41,7 @@
                 home-manager.useUserPackages = true;
                 home-manager.users.${vars.user.name} = ./home/${vars.user.name};
                 home-manager.extraSpecialArgs = specialArgs;
+                home-manager.sharedModules = [ ./modules/home-manager ];
               }
             ];
           }
@@ -61,8 +62,8 @@
             inherit pkgs;
             extraSpecialArgs = { inherit inputs myLib vars; };
             modules = [
-              ./modules/home-manager
               ./home/${vars.user.name}
+              ./modules/home-manager
               inputs.sops-nix.homeManagerModules.sops
             ];
           }

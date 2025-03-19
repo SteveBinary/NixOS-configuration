@@ -11,7 +11,6 @@ let
 in
 {
   imports = [
-    ../../modules/nixos
     inputs.nixos-hardware.nixosModules.framework-16-7040-amd
   ];
 
@@ -160,7 +159,7 @@ in
     "${vars.user.name}" = {
       description = myLib.stringUtils.upperCaseFirstLetter vars.user.name;
       isNormalUser = true;
-      createHome = true;
+      home = vars.user.home;
       extraGroups = [
         "adbusers" # android debug bridge
         "dialout" # e.g. for espflash

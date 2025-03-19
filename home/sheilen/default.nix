@@ -8,7 +8,6 @@
 
 {
   imports = [
-    ../../modules/home-manager
     ./fonts.nix
     ./home-files.nix
   ];

@@ -7,7 +7,6 @@
 
 {
   imports = [
-    ../../modules/home-manager
     ./home-files.nix
   ];
 
