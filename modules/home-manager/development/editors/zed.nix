@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg = config.my.programs.zed-editor;
+  cfg = config.my.programs.development.editors.zed;
 in
 {
-  options.my.programs.zed-editor = {
-    enable = lib.mkEnableOption "Enable my Home Manager module for Zed";
+  options.my.programs.development.editors.zed = {
+    enable = lib.mkEnableOption "Enable Zed";
   };
 
   config = lib.mkIf cfg.enable {

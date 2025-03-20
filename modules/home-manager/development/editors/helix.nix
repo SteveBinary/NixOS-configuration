@@ -6,20 +6,11 @@
 }:
 
 let
-  cfg = config.my.programs.helix;
+  cfg = config.my.programs.development.editors.helix;
 in
 {
-  options.my.programs.helix = {
-    enable = lib.mkEnableOption "Enable my Home Manager module for helix";
-    language-servers = lib.mkOption {
-      default = with pkgs; [
-        marksman # markdown
-        nil # nix
-        taplo # toml
-        yaml-language-server # yaml and docker-compose
-      ];
-      type = lib.types.listOf lib.types.package;
-    };
+  options.my.programs.development.editors.helix = {
+    enable = lib.mkEnableOption "Enable Helix";
   };
 
   config = lib.mkIf cfg.enable {
@@ -28,7 +19,12 @@ in
       hx = "hx --config ${config.xdg.configHome}/helix/config.toml";
     };
 
-    home.packages = cfg.language-servers;
+    home.packages = with pkgs; [
+      marksman # markdown
+      nil # nix
+      taplo # toml
+      yaml-language-server # yaml and docker-compose
+    ];
 
     programs.helix = {
       enable = true;
@@ -87,11 +83,6 @@ in
         };
 
         keys.insert = {
-          C-s = [ ":write" ]; # save the buffer
-          C-q = [
-            "normal_mode"
-            ":quit"
-          ]; # close the buffer
           C-left = [ "move_prev_word_start" ]; # faster movement with the arrow keys
           C-right = [ "move_next_word_start" ]; # faster movement with the arrow keys
         };
@@ -105,8 +96,6 @@ in
             "move_line_down"
             "goto_first_nonwhitespace"
           ]; # move to the start of the next line when pressing enter
-          C-s = [ ":write" ]; # save the buffer
-          C-q = [ ":quit" ]; # close the buffer
           C-left = [
             "move_prev_word_start"
             "move_char_left"

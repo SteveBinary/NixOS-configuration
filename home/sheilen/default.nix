@@ -13,20 +13,34 @@
   ];
 
   my.programs = {
-    bat.enable = true;
-    direnv.enable = true;
-    fzf.enable = true;
+    development = {
+      editors = {
+        helix.enable = true;
+        zed.enable = true;
+        jetbrains = {
+          defaultVMOptions = {
+            minMemory = 2048;
+            maxMemory = 16384;
+          };
+          intellij = {
+            enable = true;
+            package = pkgs.jetbrains.idea-ultimate;
+          };
+          rider.enable = true;
+          rustrover.enable = true;
+        };
+      };
+      kubernetes.enable = true;
+      mqtt-explorer = {
+        enable = true;
+        noSandbox = true;
+      };
+    };
     git = {
       enable = true;
       askpass = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
       includes = [ { path = config.sops.secrets.git_user_information.path; } ];
     };
-    helix.enable = true;
-    mqtt-explorer = {
-      enable = true;
-      noSandbox = true;
-    };
-    oh-my-posh.enable = true;
     shells = {
       bash = {
         enable = true;
@@ -37,16 +51,16 @@
       };
       zsh.enable = true;
     };
-    zed-editor.enable = true;
+    oh-my-posh.enable = true;
     zellij.enable = true;
+    bat.enable = true;
+    direnv.enable = true;
+    fzf.enable = true;
   };
 
   home = {
     packages = with pkgs; [
       # desktop applications
-      jetbrains.idea-ultimate
-      jetbrains.rider
-      jetbrains.rust-rover
       keepass
       vlc
 
@@ -56,12 +70,6 @@
       file
       hexyl
       jq
-      kubecolor
-      kubectl
-      kubectx
-      kubernetes-helm
-      lsd
-      minikube
       parallel
       ripgrep
       tldr

@@ -30,6 +30,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.shellAliases = {
+      gs = "git status";
+    };
+
     programs.git = {
       enable = true;
       userName = cfg.userName;

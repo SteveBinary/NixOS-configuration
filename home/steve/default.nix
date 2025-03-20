@@ -11,25 +11,27 @@
   ];
 
   my.programs = {
-    bat.enable = true;
-    direnv.enable = true;
-    fzf.enable = true;
+    development.editors = {
+      helix.enable = true;
+      zed.enable = true;
+    };
     git = {
       enable = true;
       userName = "SteveBinary";
       userEmail = "SteveBinary@users.noreply.github.com";
       askpass = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
     };
-    helix.enable = true;
-    kitty.enable = true;
-    oh-my-posh.enable = true;
     shells = {
       bash.enable = true;
       zsh.enable = true;
     };
-    virt-manager-extra.enable = true;
-    zed-editor.enable = true;
+    kitty.enable = true;
+    oh-my-posh.enable = true;
     zellij.enable = true;
+    bat.enable = true;
+    direnv.enable = true;
+    fzf.enable = true;
+    virt-manager-extra.enable = true;
   };
 
   my.services = {
@@ -47,7 +49,6 @@
       handbrake
       haruna
       inkscape
-      jetbrains.rust-rover
       kdePackages.kdepim-addons
       kdePackages.ksystemlog
       libreoffice-qt6-fresh
@@ -80,15 +81,9 @@
       file
       imagemagick
       jq
-      lsd
       fastfetch
-      kubecolor
-      kubectl
-      kubectx
-      kubernetes-helm
       tldr
       tree
-      yazi
       yq
     ];
 

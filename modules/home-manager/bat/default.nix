@@ -29,6 +29,10 @@ in
       };
     };
 
+    home.shellAliases = {
+      cat = "bat";
+    };
+
     home.sessionVariables = {
       BAT_THEME = "catppuccin-mocha";
 

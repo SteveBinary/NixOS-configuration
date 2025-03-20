@@ -7,10 +7,10 @@
 }:
 
 let
-  cfg = config.my.programs.mqtt-explorer;
+  cfg = config.my.programs.development.mqtt-explorer;
 in
 {
-  options.my.programs.mqtt-explorer = {
+  options.my.programs.development.mqtt-explorer = {
     enable = lib.mkEnableOption "Enable my Home Manager module for mqtt-explorer";
     noSandbox = lib.mkOption {
       default = false;
