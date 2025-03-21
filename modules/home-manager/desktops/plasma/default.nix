@@ -15,7 +15,7 @@ let
 in
 {
   options.my.desktops.plasma = {
-    enable = lib.mkEnableOption "Enable my Home Manager module for direnv";
+    enable = lib.mkEnableOption "Enable my Home Manager module for KDE Plasma";
   };
 
   config = lib.mkIf cfg.enable {
@@ -32,6 +32,70 @@ in
       };
       krunner.position = "center";
       kwin.effects.shakeCursor.enable = false;
+      shortcuts =
+        {
+          "kwin"."Window Maximize" = "Meta+Up";
+          "kwin"."ClearLastMouseMark" = "Ctrl+Shift+F12";
+          "kwin"."ClearMouseMarks" = "Ctrl+Shift+F11";
+          "services/org.kde.spectacle.desktop"."RectangularRegionScreenShot" = "Meta+Shift+S";
+        }
+        // lib.optionalAttrs config.my.programs.kitty.enable {
+          "services/kitty.desktop"."_launch" = "Ctrl+Alt+T";
+        };
+      configFile = {
+        baloofilerc = {
+          General = {
+            "exclude folders" = {
+              value = "$HOME/Projects/";
+              shellExpand = true;
+            };
+          };
+        };
+        dolphinrc = {
+          General = {
+            GlobalViewProps = false;
+          };
+          VersionControl = {
+            enabledPlugins = "Git";
+          };
+        };
+        kdeglobals = {
+          General = lib.optionalAttrs config.my.programs.kitty.enable {
+            TerminalApplication = "kitty";
+            TerminalService = "kitty.desktop";
+          };
+          KDE = {
+            AnimationDurationFactor = 0.25;
+          };
+        };
+        krunnerrc = {
+          Plugins = {
+            browserhistoryEnabled = false;
+            browsertabsEnabled = false;
+            krunner_appstreamEnabled = false;
+            krunner_katesessionsEnabled = false;
+            krunner_konsoleprofilesEnabled = false;
+          };
+        };
+        kwinrc = {
+          Plugins = {
+            mousemarkEnabled = true;
+          };
+          Effect-mousemark = {
+            Freedrawalt = false;
+            Freedrawcontrol = true;
+            Freedrawshift = true;
+            Freedrawmeta = false;
+            Arrowdrawalt = false;
+            Arrowdrawcontrol = true;
+            Arrowdrawshift = true;
+            Arrowdrawmeta = true;
+          };
+          Effect-overview = {
+            BorderActivate = 9;
+          };
+        };
+      };
       input.touchpads = [
         {
           enable = true;
@@ -46,31 +110,6 @@ in
           # accelerationProfile = "none"; # TODO: wait for PR https://github.com/nix-community/plasma-manager/pull/478
         }
       ];
-      configFile = {
-        kdeglobals = {
-          General = {
-            TerminalApplication = "kitty";
-            TerminalService = "kitty.desktop";
-          };
-          KDE.AnimationDurationFactor = 0.25;
-        };
-        krunnerrc = {
-          Plugins = {
-            browserhistoryEnabled = false;
-            browsertabsEnabled = false;
-            krunner_appstreamEnabled = false;
-            krunner_katesessionsEnabled = false;
-            krunner_konsoleprofilesEnabled = false;
-          };
-        };
-        kwinrc = {
-          Effect-overview.BorderActivate = 9;
-        };
-      };
-      shortcuts = {
-        "kwin"."Window Maximize" = "Meta+Up";
-        "services/kitty.desktop"."_launch" = "Ctrl+Alt+T";
-      };
       panels = [
         {
           screen = "all";
@@ -78,7 +117,9 @@ in
           floating = true;
           widgets = [
             {
-              kickoff.icon = "nix-snowflake-white";
+              kickoff = {
+                icon = "nix-snowflake-white";
+              };
             }
             {
               iconTasks.launchers = [

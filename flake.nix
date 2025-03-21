@@ -73,6 +73,7 @@
               ./home/${vars.user.name}
               ./modules/home-manager
               inputs.sops-nix.homeManagerModules.sops
+              inputs.plasma-manager.homeManagerModules.plasma-manager
             ];
           }
         );
