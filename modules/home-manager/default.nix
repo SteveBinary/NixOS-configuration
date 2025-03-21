@@ -3,6 +3,7 @@
 {
   imports = [
     ./bat
+    ./desktops
     ./development
     ./direnv
     ./fzf

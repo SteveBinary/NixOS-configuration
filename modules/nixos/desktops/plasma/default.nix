@@ -18,6 +18,12 @@ in
       desktopManager.plasma6.enable = true;
       displayManager.sddm.enable = true;
     };
+
+    environment.plasma6.excludePackages = with pkgs.kdePackages; [
+      kate
+      khelpcenter
+    ];
+
     environment.systemPackages = with pkgs; [
       # mostly for the Info Center app to display all sorts of information
       aha

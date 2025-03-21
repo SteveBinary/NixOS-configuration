@@ -10,6 +10,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,7 +46,10 @@
                 home-manager.useUserPackages = true;
                 home-manager.users.${vars.user.name} = ./home/${vars.user.name};
                 home-manager.extraSpecialArgs = specialArgs;
-                home-manager.sharedModules = [ ./modules/home-manager ];
+                home-manager.sharedModules = [
+                  ./modules/home-manager
+                  inputs.plasma-manager.homeManagerModules.plasma-manager
+                ];
               }
             ];
           }
