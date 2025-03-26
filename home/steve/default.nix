@@ -51,8 +51,6 @@
       handbrake
       haruna
       inkscape
-      kdePackages.kdepim-addons
-      kdePackages.ksystemlog
       libreoffice-qt6-fresh
       localsend
       obsidian
@@ -64,7 +62,7 @@
       # issue: https://github.com/nix-community/home-manager/issues/5173
       # original: https://github.com/NixOS/nixpkgs/issues/254265
       # using this workaround: https://discourse.nixos.org/t/home-manager-collision-with-app-lib/51969/2
-      #(lib.hiPrio rustdesk-flutter)
+      # TODO: (lib.hiPrio rustdesk-flutter)
 
       # spellchecking and hyphenation, mostly for LibreOffice
       hunspell
@@ -86,7 +84,7 @@
       fastfetch
       tldr
       tree
-      yq
+      yq-go
     ];
 
     username = vars.user.name;

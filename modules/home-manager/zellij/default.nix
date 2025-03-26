@@ -17,7 +17,9 @@ in
       enable = true;
       enableBashIntegration = false;
       enableZshIntegration = false;
-      settings = { };
+      settings = {
+        theme = "catppuccin-mocha";
+      };
     };
   };
 }

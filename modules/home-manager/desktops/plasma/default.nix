@@ -1,14 +1,16 @@
 {
+  pkgs,
   lib,
   config,
   ...
 }:
 
-#### Getting the app IDs
-# run   'ls /run/current-system/sw/share/applications'         for programs installed via the system config
-# run   'ls /etc/profiles/per-user/steve/share/applications'   for programs installed via Home Manager
-# run   'ls /run/current-system/sw/share/plasma/plasmoids'     for the plasmoids
-# there is more in '/run/current-system/sw/share/plasma'
+##### Getting the app IDs
+# Run   'ls /run/current-system/sw/share/applications'         for programs installed via the system config.
+# Run   'ls /etc/profiles/per-user/steve/share/applications'   for programs installed via Home Manager.
+# Run   'ls /run/current-system/sw/share/plasma/plasmoids'     for the plasmoids.
+# There is more in '/run/current-system/sw/share/plasma'.
+# One can also just apply configs via the UI and look for the changes in the config files under ~/.config
 
 let
   cfg = config.my.desktops.plasma;
@@ -19,6 +21,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      kdePackages.kcolorchooser
+      kdePackages.kdepim-addons
+      kdePackages.ksystemlog
+    ];
+
     programs.plasma = {
       enable = true;
       overrideConfig = true;
@@ -37,6 +45,7 @@ in
           "kwin"."Window Maximize" = "Meta+Up";
           "kwin"."ClearLastMouseMark" = "Ctrl+Shift+F12";
           "kwin"."ClearMouseMarks" = "Ctrl+Shift+F11";
+          "services/org.kde.kcolorchooser.desktop"."_launch" = "Meta+Shift+C";
           "services/org.kde.spectacle.desktop"."RectangularRegionScreenShot" = "Meta+Shift+S";
         }
         // lib.optionalAttrs config.my.programs.kitty.enable {
@@ -106,8 +115,8 @@ in
           disableWhileTyping = false;
           middleButtonEmulation = false;
           naturalScroll = true;
-          pointerSpeed = 0.2; # TODO: set to 0.6 when accelerationProfile can be set to none
-          # accelerationProfile = "none"; # TODO: wait for PR https://github.com/nix-community/plasma-manager/pull/478
+          pointerSpeed = 0.6;
+          accelerationProfile = "none";
         }
       ];
       panels = [
