@@ -21,15 +21,15 @@ in
         nixpkgs.flake = inputs.nixpkgs;
         nixpkgs-stable.flake = inputs.nixpkgs-stable;
       };
-      channel.enable = false; # remove nix-channel related tools & configs, as flakes are used
+      channel.enable = false; # remove nix-channel related tools & configs, as flakes are used for everything
       settings = {
+        warn-dirty = false;
         experimental-features = [
           "flakes"
           "nix-command"
         ];
-        auto-optimise-store = true;
-        warn-dirty = false;
       };
+      optimise.automatic = true;
       gc = {
         automatic = true;
         dates = "weekly";
