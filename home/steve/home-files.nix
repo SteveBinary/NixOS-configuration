@@ -4,6 +4,11 @@
   ...
 }:
 
+let
+  preventSystemSuspendWhile =
+    description: command:
+    ''systemd-inhibit --who "${description}" --why "initiated by user" --what "idle:sleep:shutdown" --mode "block" \${"\n      "}${command}'';
+in
 {
   home.file = {
     "Projects/.directory".text = ''
@@ -28,38 +33,48 @@
           just --version
           just --list --unsorted
 
+      # format all .nix files
       format:
           nix fmt --no-update-lock-file *.nix **/*.nix
 
+      # make a system switch
       switch:
-          sudo nixos-rebuild switch --flake {{ justfile_directory() }}#${vars.machine}
+          ${preventSystemSuspendWhile "NixOS Switch" "sudo nixos-rebuild switch --flake {{ justfile_directory() }}#${vars.machine}"}
 
+      # update the flake.lock
       update-flake:
           sudo nix flake update --flake {{ justfile_directory() }}
 
+      # update the flake.lock and apply by making a system switch
       update: update-flake switch
 
+      # garbage collection of system packages
       collect-garbage:
           #!/usr/bin/env zsh
           before=$(df --human-readable --output=used / | sed 1d | sed "s/[[:space:]]*//")
-          sudo nix-collect-garbage
+          ${preventSystemSuspendWhile "Garbage Collection" "sudo nix-collect-garbage"}
           after=$(df --human-readable --output=used / | sed 1d | sed "s/[[:space:]]*//")
           echo "=================================================="
           echo "Effect of garbage collection on disk usage"
           echo "  Before: $before"
           echo "  After:  $after"
 
+      # garbage collection of home-manager + system generations and nix store optimise
       collect-garbage-all:
           #!/usr/bin/env zsh
           before=$(df --human-readable --output=used / | sed 1d | sed "s/[[:space:]]*//")
-          sudo nix-collect-garbage -d
-          nix store optimise
+          # easy way to temporarily get sudo rights so the user won't be asked later
+          sudo echo -n
+          ${preventSystemSuspendWhile "Garbage Collection (user)" "nix-collect-garbage -d"}
+          ${preventSystemSuspendWhile "Garbage Collection (system)" "sudo nix-collect-garbage -d"}
+          ${preventSystemSuspendWhile "Nix Store Optimisation" "nix store optimise"}
           after=$(df --human-readable --output=used / | sed 1d | sed "s/[[:space:]]*//")
           echo "=================================================="
           echo "Effect of garbage collection on disk usage"
           echo "  Before: $before"
           echo "  After:  $after"
 
+      # list the system generations (from the boot menu), not the home-manager generations
       list-generations:
           sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
     '';
