@@ -25,6 +25,7 @@
           intellij = {
             enable = true;
             package = pkgs.jetbrains.idea-ultimate;
+            vmOptions.kotlinK2Mode = true;
           };
           rider.enable = true;
           rustrover.enable = true;

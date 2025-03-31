@@ -43,6 +43,7 @@ in
               (lib.optionalString (options.maxMemory != null) "-Xmx${toString (options.maxMemory)}m")
               (lib.optionalString (options.awtBackend == "Wayland") "-Dawt.toolkit.name=WLToolkit")
               (lib.optionalString (options.awtBackend == "X11") "-Dawt.toolkit.name=XToolkit")
+              (lib.optionalString (options.kotlinK2Mode == true) "-Didea.kotlin.plugin.use.k2=true")
             ]
           );
         in
