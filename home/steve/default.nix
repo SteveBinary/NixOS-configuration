@@ -24,6 +24,8 @@
       askpass = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
     };
     shells = {
+      fancyLS = true;
+      clipboardAliasesBackend = "Wayland";
       bash.enable = true;
       zsh.enable = true;
     };

@@ -43,6 +43,8 @@
       includes = [ { path = config.sops.secrets.git_user_information.path; } ];
     };
     shells = {
+      fancyLS = true;
+      clipboardAliasesBackend = "X11";
       bash = {
         enable = true;
         bashrcExtra = ''

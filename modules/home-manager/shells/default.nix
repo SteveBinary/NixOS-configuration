@@ -18,13 +18,27 @@ in
 
   options.my.programs.shells = {
     fancyLS = lib.mkOption {
-      default = true;
+      default = false;
       type = lib.types.bool;
+    };
+    clipboardAliasesBackend = lib.mkOption {
+      default = null;
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "Wayland"
+          "X11"
+        ]
+      );
     };
   };
 
   config = {
-    home.packages = lib.optional cfg.fancyLS pkgs.lsd;
+    home.packages =
+      [ ]
+      ++ lib.optional cfg.fancyLS pkgs.lsd
+      ++ lib.optional (cfg.clipboardAliasesBackend == "Wayland") pkgs.wl-clipboard
+      ++ lib.optional (cfg.clipboardAliasesBackend == "X11") pkgs.xclip;
+
     home.shellAliases =
       import ./common-shell-aliases.nix
       // lib.optionalAttrs cfg.fancyLS {
@@ -32,6 +46,14 @@ in
         ls = "lsd --long --group-directories-first";
         la = "lsd --all --long --group-directories-first";
         ll = "lsd --all --long --group-directories-first";
+      }
+      // lib.optionalAttrs (cfg.clipboardAliasesBackend == "Wayland") {
+        ccopy = "wc";
+        cpaste = "wp";
+      }
+      // lib.optionalAttrs (cfg.clipboardAliasesBackend == "X11") {
+        ccopy = "xclip -in -selection clipboard";
+        cpaste = "xclip -out -selection clipboard";
       };
   };
 }
