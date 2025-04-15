@@ -48,6 +48,7 @@
       # desktop applications
       bitwarden-desktop
       bottles
+      czkawka-full
       element-desktop
       firefox
       handbrake
@@ -57,7 +58,7 @@
       localsend
       obsidian
       protonmail-bridge-gui
-      signal-desktop
+      signal-desktop-source
       thunderbird
       ytdownloader
 
