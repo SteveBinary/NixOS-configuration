@@ -48,8 +48,8 @@ in
         ll = "lsd --all --long --group-directories-first";
       }
       // lib.optionalAttrs (cfg.clipboardAliasesBackend == "Wayland") {
-        ccopy = "wc";
-        cpaste = "wp";
+        ccopy = "wl-copy";
+        cpaste = "wl-paste";
       }
       // lib.optionalAttrs (cfg.clipboardAliasesBackend == "X11") {
         ccopy = "xclip -in -selection clipboard";
