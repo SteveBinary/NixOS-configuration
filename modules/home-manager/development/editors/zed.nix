@@ -14,23 +14,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      bash-language-server # Bash
-      helm-ls # Helm
-      jdt-language-server # Java
-      kotlin-language-server # Kotlin
-      nginx-language-server # nginx
-      nixd # Nix
-      python313Packages.python-lsp-server # Python
-      rust-analyzer # Rust
-      shellcheck # shell script analysis
-      taplo # TOML
-      tinymist # Typst (language server)
-      typescript-language-server # JavaScript, TypeScript
-      typst # Typst
-      yaml-language-server # YAML
-    ];
-
     programs.zed-editor = {
       enable = true;
       extensions = [
@@ -65,16 +48,32 @@ in
           metrics = false;
         };
         theme = {
-          mode = "system";
+          mode = "dark";
           light = "Catppuccin Latte";
           dark = "Catppuccin Mocha";
         };
         icon_theme = {
-          mode = "system";
+          mode = "dark";
           light = "Catppuccin Latte";
           dark = "Catppuccin Mocha";
         };
       };
+      extraPackages = with pkgs; [
+        bash-language-server # Bash
+        helm-ls # Helm
+        jdt-language-server # Java
+        kotlin-language-server # Kotlin
+        nginx-language-server # nginx
+        nixd # Nix
+        python313Packages.python-lsp-server # Python
+        rust-analyzer # Rust
+        shellcheck # shell script analysis
+        taplo # TOML
+        tinymist # Typst (language server)
+        typescript-language-server # JavaScript, TypeScript
+        typst # Typst
+        yaml-language-server # YAML
+      ];
     };
   };
 }
