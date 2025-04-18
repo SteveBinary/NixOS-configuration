@@ -54,6 +54,7 @@ in
       configFile = {
         baloofilerc = {
           General = {
+            "only basic indexing" = true;
             "exclude folders" = {
               value = "$HOME/Projects/";
               shellExpand = true;
