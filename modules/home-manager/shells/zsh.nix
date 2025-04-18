@@ -72,11 +72,13 @@ in
           # replace the default completion menu by fzf
           zstyle ':completion:*' menu no
           zstyle ':fzf-tab:complete:*' fzf-preview 'ls --color $realpath'
-
+        ''
+        (lib.optionalString config.my.programs.kitty.enable ''
           # if running in Kitty, use the kitten-wrapper for ssh to prevent issues on remote hosts that don't have terminfo for Kitty
           # see: https://wiki.archlinux.org/title/Kitty#Terminal_issues_with_SSH
-          [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
-        ''
+          # BUT: don't set the alias in Zellij because of https://github.com/zellij-org/zellij/issues/4093
+          [ -z "$ZELLIJ" ] && [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+        '')
         (lib.optionalString config.my.programs.development.kubernetes.enable ''
           # fix that the kubecolor tab-completions are not working when the kubectl completions are not triggered at least once before
           compdef kubecolor=kubectl
