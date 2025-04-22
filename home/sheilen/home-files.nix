@@ -3,7 +3,7 @@
 let
   preventSystemSuspendWhile =
     description: command:
-    ''systemd-inhibit --who "${description}" --why "initiated by user" --what "idle:sleep:shutdown" --mode "block" \${"\n      "}${command}'';
+    ''systemd-inhibit --who "${description}" --why "initiated by user" --what "idle:sleep:shutdown" --mode "block" \${"\n      "}/usr/bin/env zsh -c '${command}${"'"}'';
 in
 {
   home.file = {
@@ -31,8 +31,8 @@ in
           nix fmt --no-update-lock-file *.nix **/*.nix
 
       # make a Home Manager switch
-      switch:
-          ${preventSystemSuspendWhile "Home Manager Switch" "home-manager switch --flake {{ justfile_directory() }}#${config.home.username}"}
+      @switch:
+          ${preventSystemSuspendWhile "Home Manager Switch" "home-manager --log-format internal-json switch --flake {{ justfile_directory() }}#${config.home.username} |& nom --json"}
 
       # update the flake.lock
       update-flake:

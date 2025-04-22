@@ -90,6 +90,7 @@
           packages = with pkgs; [
             age
             just
+            nix-output-monitor
             sops
           ];
         };

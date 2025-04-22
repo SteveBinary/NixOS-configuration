@@ -7,7 +7,7 @@
 let
   preventSystemSuspendWhile =
     description: command:
-    ''systemd-inhibit --who "${description}" --why "initiated by user" --what "idle:sleep:shutdown" --mode "block" \${"\n      "}${command}'';
+    ''systemd-inhibit --who "${description}" --why "initiated by user" --what "idle:sleep:shutdown" --mode "block" \${"\n      "}/usr/bin/env zsh -c '${command}${"'"}'';
 in
 {
   home.file = {
@@ -38,8 +38,8 @@ in
           nix fmt --no-update-lock-file *.nix **/*.nix
 
       # make a system switch
-      switch:
-          ${preventSystemSuspendWhile "NixOS Switch" "sudo nixos-rebuild switch --flake {{ justfile_directory() }}#${vars.machine}"}
+      @switch:
+          ${preventSystemSuspendWhile "NixOS Switch" "sudo nixos-rebuild --verbose --log-format internal-json switch --flake {{ justfile_directory() }}#${vars.machine} |& nom --json"}
 
       # update the flake.lock
       update-flake:
