@@ -41,10 +41,6 @@ let
           ]);
           default = null;
         };
-        kotlinK2Mode = lib.mkOption {
-          type = bool;
-          default = false;
-        };
       };
     };
 in
