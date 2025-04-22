@@ -59,8 +59,9 @@
       localsend
       obsidian
       protonmail-bridge-gui
-      signal-desktop-source
+      signal-desktop
       thunderbird
+      xorg.xeyes
       ytdownloader
 
       # issue: https://github.com/nix-community/home-manager/issues/5173
