@@ -35,6 +35,7 @@
     bat.enable = true;
     direnv.enable = true;
     fzf.enable = true;
+    utilities.enable = true;
     virt-manager-extra.enable = true;
   };
 
@@ -78,16 +79,9 @@
       superTuxKart
 
       # terminal applications
-      dnsutils
       dos2unix
       exiftool
-      file
       imagemagick
-      jq
-      fastfetch
-      tldr
-      tree
-      yq-go
     ];
 
     username = vars.user.name;

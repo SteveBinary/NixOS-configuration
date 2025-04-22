@@ -21,7 +21,6 @@ in
       killall
       mtr
       ncdu
-      ripgrep
       trash-cli
       unzip
       wget

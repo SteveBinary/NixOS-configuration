@@ -58,26 +58,13 @@
     bat.enable = true;
     direnv.enable = true;
     fzf.enable = true;
+    utilities.enable = true;
   };
 
   home = {
     packages = with pkgs; [
-      # desktop applications
       keepass
       vlc
-
-      # terminal applications
-      dnsutils
-      fastfetch
-      file
-      hexyl
-      jq
-      parallel
-      ripgrep
-      tldr
-      tree
-      yazi
-      yq
     ];
 
     sessionVariables = {
