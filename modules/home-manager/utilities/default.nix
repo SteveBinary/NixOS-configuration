@@ -15,6 +15,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      delta
       dive
       dnsutils
       fastfetch
