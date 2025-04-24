@@ -56,11 +56,11 @@ in
           file = "share/fzf-tab/fzf-tab.plugin.zsh";
         }
       ];
-      initExtraFirst = ''
-        # colors for the default completion menu
-        zstyle ':completion:*' list-colors "$${(s.:.)LS_COLORS}"
-      '';
-      initExtra = lib.concatLines [
+      initContent = lib.mkMerge [
+        (lib.mkBefore ''
+          # colors for the default completion menu
+          zstyle ':completion:*' list-colors "$${(s.:.)LS_COLORS}"
+        '')
         ''
           # extras for history
           HISTDUP=erase
