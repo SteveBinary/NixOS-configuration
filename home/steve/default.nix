@@ -61,6 +61,7 @@
       protonmail-bridge-gui
       signal-desktop
       thunderbird
+      vlc
       xorg.xeyes
       ytdownloader
 
@@ -78,11 +79,6 @@
       oh-my-git
       superTux
       superTuxKart
-
-      # terminal applications
-      dos2unix
-      exiftool
-      imagemagick
     ];
 
     username = vars.user.name;
