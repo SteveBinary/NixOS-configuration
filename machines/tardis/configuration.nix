@@ -36,7 +36,7 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  system.stateVersion = "25.05"; # Change with great care!
+  system.stateVersion = "25.11"; # Change with great care!
 
   ########## boot #################################################################################
 
