@@ -109,6 +109,29 @@
         "type": "github"
       }
     },
+    "rambo": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748691597,
+        "narHash": "sha256-ffX+HaTvDxmC5OUuWcAhbAL2nthg+2mR4E1SeVJE++0=",
+        "owner": "SteveBinary",
+        "repo": "rambo",
+        "rev": "1b60ece4de9d7ef77bc83836cd19209b3ae7c8a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SteveBinary",
+        "repo": "rambo",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -117,6 +140,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "plasma-manager": "plasma-manager",
+        "rambo": "rambo",
         "sops-nix": "sops-nix"
       }
     },

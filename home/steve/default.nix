@@ -2,6 +2,7 @@
   pkgs,
   lib,
   vars,
+  inputs,
   ...
 }:
 
@@ -79,6 +80,9 @@
       oh-my-git
       superTux
       superTuxKart
+
+      # terminal applications
+      inputs.rambo.packages."${pkgs.system}".default
     ];
 
     username = vars.user.name;
