@@ -1,4 +1,9 @@
-{ pkgs, vars, ... }:
+{
+  pkgs,
+  lib,
+  vars,
+  ...
+}:
 
 {
   ########## My NixOS modules #####################################################################
@@ -49,8 +54,26 @@
   ########## services #############################################################################
 
   services = {
-    openssh.enable = true;
-    # TODO: disable SSH root login and disable password-based login
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
+      banner = lib.concatLines [
+        # using https://manytools.org/hacker-tools/ascii-banner/ with font ANSI Shadow and horizontal/vertical spacing of Normal
+        " ██████╗ ██████╗ ██╗   ██╗██╗██╗     ██╗     ███████╗"
+        "██╔═══██╗██╔══██╗██║   ██║██║██║     ██║     ██╔════╝"
+        "██║   ██║██████╔╝██║   ██║██║██║     ██║     █████╗  "
+        "██║   ██║██╔══██╗╚██╗ ██╔╝██║██║     ██║     ██╔══╝  "
+        "╚██████╔╝██║  ██║ ╚████╔╝ ██║███████╗███████╗███████╗"
+        " ╚═════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚══════╝╚══════╝╚══════╝"
+      ];
+    };
+    iperf3 = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   ########## localizaiton #########################################################################
