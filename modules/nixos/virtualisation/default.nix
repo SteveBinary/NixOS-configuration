@@ -22,6 +22,7 @@ in
         containers.enable = true;
         docker = {
           enable = true;
+          autoPrune.enable = true;
           storageDriver = "overlay2";
         };
       };
