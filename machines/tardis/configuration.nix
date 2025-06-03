@@ -34,9 +34,9 @@ in
 
   ########## NixOS ################################################################################
 
-  nixpkgs.config.allowUnfree = true;
-
   system.stateVersion = "25.11"; # Change with great care!
+
+  nixpkgs.config.allowUnfree = true;
 
   ########## boot #################################################################################
 

@@ -34,6 +34,32 @@ Utilities and helper functions.
 
 Configurations and hardware configurations specific to the respective machine.
 
+#### Bootstrapping `orville`
+
+**Note:** The config sets a static IPv4 address and other network options.
+Check that the IP address is not already in used in your network.
+For step 4 you will need to use this IP address.
+
+1. Run a graphical NixOS-installer image (the permissions/authentication can be a problem on the minimal ISOs).
+2. Set a password for the `nixos` user via `passwd`.
+3. Run the following command from the root of this repository and use the just created password when promted:
+   ```shell
+   nix run github:nix-community/nixos-anywhere -- \
+     --flake .#orville \
+     --build-on-remote \
+     --generate-hardware-config \
+     nixos-generate-config \
+     machines/orville/hardware-configuration.nix \
+     --target-host nixos@<IP address of the remote host>
+   ```
+4. The setup is complete. To apply changes in the future, run this command:
+   ```shell
+   sudo nixos-rebuild switch \
+     --flake .#orville \
+     --use-remote-sudo \
+     --target-host steve@<IP address of the remote host>
+   ```
+
 ### modules/nixos
 
 NixOS modules.

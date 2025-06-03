@@ -6,6 +6,10 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,6 +60,23 @@
                   inputs.plasma-manager.homeManagerModules.plasma-manager
                 ];
               }
+            ];
+          }
+        );
+        orville = inputs.nixpkgs-stable.lib.nixosSystem (
+          let
+            vars = {
+              machine = "orville";
+              user.name = "steve";
+            };
+          in
+          {
+            specialArgs = { inherit inputs vars; };
+            modules = [
+              ./machines/${vars.machine}
+              ./modules/nixos
+              inputs.disko.nixosModules.disko
+              inputs.sops-nix.nixosModules.sops
             ];
           }
         );
