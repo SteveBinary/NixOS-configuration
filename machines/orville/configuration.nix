@@ -23,8 +23,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.trusted-users = [ vars.user.name ];
-
   ########## boot ################################################################################
 
   boot = {
@@ -57,7 +55,7 @@
     openssh = {
       enable = true;
       settings = {
-        PermitRootLogin = "no";
+        PermitRootLogin = "prohibit-password";
         PasswordAuthentication = false;
       };
       banner = lib.concatLines [
@@ -83,14 +81,23 @@
 
   ########## users ################################################################################
 
-  users.users."${vars.user.name}" = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    hashedPassword = "$y$j9T$evTl0fYErvBLX35Ooealp1$tb5NthTn1CCVDd4E/ChUPruF3ADGj4XBpVd/suuvBb3";
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhJ8AAl4pGSIH3m4+ok3cwKHJqvI6Chi4QJprSNvBw8 orville"
-    ];
-  };
+  users.users =
+    let
+      sshAuthorizedKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhJ8AAl4pGSIH3m4+ok3cwKHJqvI6Chi4QJprSNvBw8 orville"
+      ];
+    in
+    {
+      "${vars.user.name}" = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" ];
+        hashedPassword = "$y$j9T$evTl0fYErvBLX35Ooealp1$tb5NthTn1CCVDd4E/ChUPruF3ADGj4XBpVd/suuvBb3";
+        openssh.authorizedKeys.keys = sshAuthorizedKeys;
+      };
+      root = {
+        openssh.authorizedKeys.keys = sshAuthorizedKeys;
+      };
+    };
 
   ########## environment  #########################################################################
 
