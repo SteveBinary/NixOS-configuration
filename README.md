@@ -42,7 +42,8 @@ For step 4 you will need to use this IP address.
 
 1. Run a graphical NixOS-installer image (the permissions/authentication can be a problem on the minimal ISOs).
 2. Set a password for the `nixos` user via `passwd`.
-3. Run the following command from the root of this repository and use the just created password when promted:
+3. Run the following command from the root of this repository and use the just created password when promted.
+   **Note:** If there is already an existing `hardware-configuration.nix`, you don't need the corresponding options.
    ```shell
    nix run github:nix-community/nixos-anywhere -- \
      --flake .#orville \
@@ -52,12 +53,12 @@ For step 4 you will need to use this IP address.
      machines/orville/hardware-configuration.nix \
      --target-host nixos@<IP address of the remote host>
    ```
-4. The setup is complete. To apply changes in the future, run this command:
+4. The setup is complete. To apply changes in the future, run the following command.
+   **Note:** You can use the user `steve` (and set `--use-remote-sudo`) instead of the `root` user but this will cause multiple password prompts.
    ```shell
-   sudo nixos-rebuild switch \
+   NIX_SSHOPTS="-i /home/steve/.ssh/id_ed25519_orville" nixos-rebuild switch \
      --flake .#orville \
-     --use-remote-sudo \
-     --target-host steve@<IP address of the remote host>
+     --target-host root@<IP address of the remote host>
    ```
 
 ### modules/nixos
