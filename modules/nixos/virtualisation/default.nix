@@ -14,9 +14,22 @@ in
     enableDocker = lib.mkEnableOption "Enable my configuration for Docker virtualisation";
     enablePodman = lib.mkEnableOption "Enable my configuration for Podman virtualisation";
     enableLibvirtd = lib.mkEnableOption "Enable my configuration for libvirtd virtualisation";
+    ociContainersBackend = lib.mkOption {
+      default = null;
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "docker"
+          "podman"
+        ]
+      );
+    };
   };
 
   config = lib.mkMerge [
+    (lib.mkIf (cfg.ociContainersBackend != null) {
+      virtualisation.oci-containers.backend = cfg.ociContainersBackend;
+    })
+
     (lib.mkIf cfg.enableDocker {
       virtualisation = {
         containers.enable = true;

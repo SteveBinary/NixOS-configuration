@@ -33,7 +33,7 @@ in
           "flakes"
           "nix-command"
         ];
-        trusted-users = lib.mkIf (cfg.trusted-users != [ ]) cfg.trusted-users;
+        trusted-users = cfg.trusted-users;
       };
       optimise.automatic = true;
       gc = {

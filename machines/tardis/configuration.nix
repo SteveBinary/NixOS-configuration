@@ -24,6 +24,7 @@ in
       enableDocker = true;
       enablePodman = true;
       enableLibvirtd = true;
+      ociContainersBackend = "docker";
     };
   };
 

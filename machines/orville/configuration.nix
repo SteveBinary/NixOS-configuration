@@ -10,7 +10,10 @@
 
   my = {
     common-utilities.enable = true;
-    virtualisation.enableDocker = true;
+    virtualisation = {
+      enableDocker = true;
+      ociContainersBackend = "docker";
+    };
     nix = {
       enable = true;
       trusted-users = [ vars.user.name ];
