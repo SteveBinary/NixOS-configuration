@@ -85,6 +85,10 @@
       inputs.rambo.packages."${pkgs.system}".default
     ];
 
+    sessionVariables = {
+      SSH_ASKPASS_REQUIRE = "prefer";
+    };
+
     username = vars.user.name;
     homeDirectory = vars.user.home;
     preferXdgDirectories = true;
