@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   inputs,
   vars,
   ...
@@ -182,6 +181,7 @@ in
 
   programs = {
     nix-ld.enable = true; # run dynamically linked executables intended for generic Linux environments
+    sniffnet.enable = true;
     steam.enable = true;
     zsh.enable = true;
   };
