@@ -68,6 +68,7 @@
             vars = {
               machine = "orville";
               user.name = "steve";
+              user.home = "/home/${vars.user.name}";
             };
           in
           {

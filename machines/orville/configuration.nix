@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   vars,
   ...
 }:
@@ -29,6 +30,18 @@
   system.stateVersion = "25.05"; # Change with great care!
 
   nixpkgs.config.allowUnfree = true;
+
+  ########## Secrets ##############################################################################
+
+  sops = {
+    age.keyFile = "${vars.user.home}/.config/sops/age/keys.txt"; # the key needs to be present on the target host
+    secrets = {
+      "user/hashed_password" = {
+        sopsFile = ./secrets.yaml;
+        neededForUsers = true;
+      };
+    };
+  };
 
   ########## boot ################################################################################
 
@@ -88,29 +101,35 @@
 
   ########## users ################################################################################
 
-  users.users =
-    let
-      sshAuthorizedKeys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhJ8AAl4pGSIH3m4+ok3cwKHJqvI6Chi4QJprSNvBw8 orville"
-      ];
-    in
-    {
-      "${vars.user.name}" = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-        hashedPassword = "$y$j9T$evTl0fYErvBLX35Ooealp1$tb5NthTn1CCVDd4E/ChUPruF3ADGj4XBpVd/suuvBb3";
-        openssh.authorizedKeys.keys = sshAuthorizedKeys;
+  users = {
+    mutableUsers = false;
+    users =
+      let
+        sshAuthorizedKeys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhJ8AAl4pGSIH3m4+ok3cwKHJqvI6Chi4QJprSNvBw8 orville"
+        ];
+      in
+      {
+        "${vars.user.name}" = {
+          isNormalUser = true;
+          extraGroups = [ "wheel" ];
+          home = vars.user.home;
+          hashedPasswordFile = config.sops.secrets."user/hashed_password".path;
+          openssh.authorizedKeys.keys = sshAuthorizedKeys;
+        };
+        root = {
+          openssh.authorizedKeys.keys = sshAuthorizedKeys;
+        };
       };
-      root = {
-        openssh.authorizedKeys.keys = sshAuthorizedKeys;
-      };
-    };
+  };
 
   ########## environment  #########################################################################
 
   virtualisation.incus.agent.enable = true;
 
   environment.systemPackages = with pkgs; [
+    age
     gitMinimal
+    sops
   ];
 }
