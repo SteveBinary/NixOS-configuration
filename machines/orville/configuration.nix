@@ -9,6 +9,7 @@
 {
   imports = [
     ./container-services
+    ./mounts.nix
   ];
 
   ########## My NixOS modules #####################################################################
@@ -50,6 +51,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+    supportedFilesystems = [ "nfs" ];
     kernel.sysctl."vm.swappines" = 10;
     kernelPackages = pkgs.linuxPackages_6_12;
   };
@@ -92,6 +94,7 @@
       enable = true;
       openFirewall = true;
     };
+    rpcbind.enable = true; # needed for NFS
   };
 
   ########## localizaiton #########################################################################
