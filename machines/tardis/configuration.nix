@@ -1,5 +1,7 @@
 {
+  lib,
   pkgs,
+  config,
   inputs,
   vars,
   ...
@@ -120,11 +122,30 @@ in
       xkb.layout = "de";
       videoDrivers = [ "amdgpu" ]; # is actually for X11 and Wayland
     };
+    acpid = {
+      enable = true;
+      lidEventCommands =
+        let
+          goodixVendor = "27c6"; # lsusb | grep Goodix
+        in
+        # disable the fingerprint sensor when the laptop lid is closed
+        # thanks to: https://github.com/NixOS/nixos-hardware/issues/1433
+        lib.mkIf config.services.fprintd.enable ''
+          grep -q closed /proc/acpi/button/lid/LID0/state
+          if [ $? = 0 ]; then
+            ${pkgs.fd}/bin/fd "-" /sys/bus/usb/devices --exec /bin/sh -c '${pkgs.gnugrep}/bin/grep -qs ${goodixVendor} {}/idVendor && ${pkgs.coreutils}/bin/echo 0 > {}/authorized'
+            systemctl restart fprintd.service
+          else
+            ${pkgs.fd}/bin/fd "-" /sys/bus/usb/devices --exec /bin/sh -c '${pkgs.gnugrep}/bin/grep -qs ${goodixVendor} {}/idVendor && ${pkgs.coreutils}/bin/echo 1 > {}/authorized'
+            systemctl restart fprintd.service
+          fi
+        '';
+    };
   };
 
   security.rtkit.enable = true; # used by PipeWire
 
-  # workaround for the long wait time when logging in
+  # Workaround for the long wait time when logging in. Seems to be a bug in SDDM.
   # see: https://github.com/NixOS/nixpkgs/issues/239770#issuecomment-1868402338
   # This only disables the fingerprint for the login (after a boot or logout).
   # Using the fingerprint to unlock (get back from lock screen) and for sudo is still possible.
