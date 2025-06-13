@@ -17,6 +17,13 @@
     development.editors = {
       helix.enable = true;
       zed.enable = true;
+      jetbrains = {
+        defaultVMOptions = {
+          minMemory = 2048;
+          maxMemory = 16384;
+        };
+        rustrover.enable = true;
+      };
     };
     git = {
       enable = true;
