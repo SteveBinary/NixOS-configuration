@@ -120,6 +120,12 @@ in
 
   security.rtkit.enable = true; # used by PipeWire
 
+  # workaround for the long wait time when logging in
+  # see: https://github.com/NixOS/nixpkgs/issues/239770#issuecomment-1868402338
+  # This only disables the fingerprint for the login (after a boot or logout).
+  # Using the fingerprint to unlock (get back from lock screen) and for sudo is still possible.
+  security.pam.services.login.fprintAuth = false;
+
   hardware = {
     bluetooth.enable = true;
     graphics = {
