@@ -22,7 +22,10 @@
           minMemory = 2048;
           maxMemory = 16384;
         };
-        rustrover.enable = true;
+        rustrover = {
+          enable = true;
+          vmOptions.awtBackend = "Wayland";
+        };
       };
     };
     git = {
@@ -89,6 +92,7 @@
       superTuxKart
 
       # terminal applications
+      gcc # mainly to not need to open RustRover from the nix shell
       inputs.rambo.packages."${pkgs.system}".default
     ];
 
